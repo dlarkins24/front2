@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Bar } from 'react-chartjs-2';  // Import the Bar component
 
 const Phase1Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);
@@ -10,7 +11,6 @@ const Phase1Scores = ({ sessionId }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetching average scores per theme for Phase 1 from backend
         const fetchScores = async () => {
             try {
                 setLoading(true);
@@ -34,14 +34,27 @@ const Phase1Scores = ({ sessionId }) => {
     };
 
     const beginDeepDive = () => {
-        // You may save the selected themes and sessionId to backend (if needed)
         navigate('/stage4');
+    };
+
+    const chartData = {
+        labels: scores.map(score => score.theme),
+        datasets: [
+            {
+                label: 'Average Scores',
+                data: scores.map(score => score.averageScore),
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderWidth: 1,
+            }
+        ]
     };
 
     return (
         <div>
             <h1>Stage 3: Review and Select Themes</h1>
             <p>Here are the average scores for each theme from Phase 1:</p>
+            <Bar data={chartData} />  {/* Display the Bar chart */}
             {scores.map(({ theme, averageScore }) => (
                 <div key={theme}>
                     <h2>{theme}: {averageScore}</h2>
