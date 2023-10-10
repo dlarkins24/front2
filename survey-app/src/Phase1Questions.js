@@ -24,11 +24,11 @@ const Phase1Questions = ({ sessionId }) => {
         fetchQuestions();
     }, []);
 
-    const handleChange = (questionId, score) => {
-        setAnswers({
-            ...answers,
-            [questionId]: score
-        });
+    const handleChange = (questionId, score, theme, phase) => {
+        setAnswers(prevAnswers => ({
+            ...prevAnswers,
+            [questionId]: { score, theme, phase }
+        }));
     };
 
     const handleSubmit = async () => {
@@ -60,8 +60,8 @@ const Phase1Questions = ({ sessionId }) => {
                                     <input
                                         type="radio"
                                         value={score}
-                                        checked={answers[question.id] === score}
-                                        onChange={() => handleChange(question.id, score)}
+                                        checked={answers[question.id]?.score === score}
+                                        onChange={() => handleChange(question.id, score, group.theme, question.phase)}
                                     />
                                     {score}
                                 </label>
