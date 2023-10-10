@@ -49,19 +49,24 @@ const Phase1Questions = ({ sessionId }) => {
     return (
         <div>
             <h1>Phase 1 Questions</h1>
-            {questions.map(question => (
-                <div key={question.id}>
-                    <p>{question.text}</p>
-                    {[1,2,3,4,5].map(score => (
-                        <label key={score}>
-                            <input
-                                type="radio"
-                                value={score}
-                                checked={answers[question.id] === score}
-                                onChange={() => handleChange(question.id, score)}
-                            />
-                            {score}
-                        </label>
+            {questions.map(group => (
+                <div key={group.theme}>
+                    <h2>{group.theme}</h2>
+                    {group.questions.map(question => (
+                        <div key={question.id}>
+                            <p>{question.text}</p>
+                            {[1, 2, 3, 4, 5].map(score => (
+                                <label key={score}>
+                                    <input
+                                        type="radio"
+                                        value={score}
+                                        checked={answers[question.id] === score}
+                                        onChange={() => handleChange(question.id, score)}
+                                    />
+                                    {score}
+                                </label>
+                            ))}
+                        </div>
                     ))}
                 </div>
             ))}
