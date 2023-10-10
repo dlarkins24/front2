@@ -1,0 +1,31 @@
+import React from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+const WelcomePage = () => {
+    const history = useHistory();
+
+    const startAssessment = async () => {
+        try {
+            const response = await axios.post('https://back2.azurewebsites.net/start-session');
+            const sessionId = response.data.sessionId;
+            
+            // Store sessionId in local storage
+            localStorage.setItem('sessionId', sessionId);
+
+            // Navigate to the next stage (e.g., /phase-one)
+            history.push('/phase-one');
+        } catch (error) {
+            console.error("Error starting session:", error);
+        }
+    };
+
+    return (
+        <div>
+            <h1>Welcome to the Survey</h1>
+            <button onClick={startAssessment}>Start Assessment</button>
+        </div>
+    );
+};
+
+export default WelcomePage;
