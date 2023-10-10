@@ -15,21 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v2 # Updated to v2
-
+      - uses: actions/checkout@v2
+      
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BRAVE_COAST_00C913710 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "survey-app/src" # Updated path
-          api_location: "" # Api source code path - optional
-          output_location: "build" # You might need to adjust this depending on your build tool
-          # If you're using create-react-app, this is likely "build"
-          # If you're using Angular, it might be "dist/{your-app-name}"
-          # If you're not using a build step, you might leave it as ""
+          app_location: "survey-app/src" 
+          api_location: ""
+          # If you're NOT using a build step, point output_location to where your static files are:
+          output_location: "survey-app/src"
+          # If you're using a build step, you should point output_location to where the built files will be output.
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
