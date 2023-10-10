@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const WelcomePage = ({ onSessionStart }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const startSession = async () => {
         try {
@@ -19,7 +19,7 @@ const WelcomePage = ({ onSessionStart }) => {
             onSessionStart(sessionId);
 
             // Redirect to the Phase 1 Questions page
-            history.push('/phase1-questions');
+            navigate('/phase1-questions');
         } catch (error) {
             console.error("Error starting session:", error);
             setError("There was an error starting the session. Please try again.");
