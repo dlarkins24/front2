@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import WelcomePage from './WelcomePage';
-import Phase1Questions from './Phase1Questions'; // Ensure you import this component
+import Phase1Questions from './Phase1Questions'; 
 
 function App() {
     const [sessionId, setSessionId] = useState(null);
@@ -12,22 +12,13 @@ function App() {
 
     return (
         <Router>
-            <Switch>
-                <Route path="/welcome">
-                    <WelcomePage onSessionStart={handleSessionStart} />
-                </Route>
-                <Route path="/phase1-questions">
-                    {sessionId ? (
-                        <Phase1Questions sessionId={sessionId} />
-                    ) : (
-                        <Redirect to="/welcome" />
-                    )}
-                </Route>
+            <Routes>
+                <Route path="/welcome" element={<WelcomePage onSessionStart={handleSessionStart} />} />
+                <Route path="/phase1-questions" element={sessionId ? <Phase1Questions sessionId={sessionId} /> : <Navigate to="/welcome" />} />
                 {/* Default route */}
-                <Route path="/">
-                    <Redirect to="/welcome" />
-                </Route>
-            </Switch>
+                <Route path="/" element={<Navigate to="/welcome" />} />
+                <Route path="*" element={<Navigate to="/welcome" />} /> {/* Catch all route */}
+            </Routes>
         </Router>
     );
 }
