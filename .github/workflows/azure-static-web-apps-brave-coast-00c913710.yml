@@ -24,11 +24,9 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BRAVE_COAST_00C913710 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "survey-app/src" 
-          api_location: ""
-          # If you're NOT using a build step, point output_location to where your static files are:
-          output_location: "survey-app/src"
-          # If you're using a build step, you should point output_location to where the built files will be output.
+          app_location: "survey-app" # Pointing to the folder containing your source code
+          api_location: "" # No API to deploy
+          output_location: "build" # Built app content directory from CRA build 
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
