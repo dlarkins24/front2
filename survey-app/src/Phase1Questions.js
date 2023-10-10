@@ -38,7 +38,7 @@ const Phase1Questions = ({ sessionId }) => {
                 sessionId,
                 responses: answers
             });
-            navigate('/stage3');
+            navigate('/Phase1Scores');
         } catch (error) {
             setError("Error submitting answers. Please try again.");
         } finally {

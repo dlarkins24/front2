@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Stage3 = ({ sessionId }) => {
+const Phase1Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);
     const [selectedThemes, setSelectedThemes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -63,4 +63,4 @@ const Stage3 = ({ sessionId }) => {
     );
 };
 
-export default Stage3;
+export default Phase1Scores;
