@@ -34,7 +34,8 @@ const Phase1Scores = ({ sessionId }) => {
     };
 
     const beginDeepDive = () => {
-        navigate('/RegistrationPage');
+        localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
+        navigate('/registrationpage');
     };
 
     const chartData = [

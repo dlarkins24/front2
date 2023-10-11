@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Phase2Questions = ({ sessionId, selectedThemes }) => {
+const Phase2Questions = ({ sessionId}) => {
+    const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes'));
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(false);
