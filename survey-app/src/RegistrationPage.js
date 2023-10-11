@@ -37,7 +37,7 @@ const RegistrationPage = ({ sessionId }) => {
         try {
             // Send registration data to the server
             await axios.post('https://back2.azurewebsites.net/register-user', { ...formData, sessionId });
-            navigate('/phase2-questions');
+            navigate('/Phase2Questions');
         } catch (e) {
             setError("Error during registration. Please try again later.");
         }
