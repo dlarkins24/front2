@@ -15,11 +15,8 @@ const Phase2Questions = ({ sessionId }) => {
             try {
                 setLoading(true);
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-questions', { themes: selectedThemes });
-                console.log('Received response:', response.data);
-
-                // Ensure there are questions and the nested questions array is set in state
-                if (response.data.questions && Array.isArray(response.data.questions[0].questions)) {
-                    setQuestions(response.data.questions[0].questions);
+                if (response.data.questions) {
+                    setQuestions(response.data.questions);
                 } else {
                     throw new Error("Unexpected API response structure");
                 }
@@ -33,14 +30,21 @@ const Phase2Questions = ({ sessionId }) => {
         fetchQuestions();
     }, [selectedThemes]);
 
-    const handleChange = (questionId, value) => {
-        setAnswers(prev => ({ ...prev, [questionId]: value }));
+    const handleChange = (questionId, score, theme, phase) => {
+        setAnswers(prevAnswers => ({
+            ...prevAnswers,
+            [questionId]: { score, theme, phase }
+        }));
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
             setLoading(true);
-            await axios.post('https://back2.azurewebsites.net/submit-phase2-answers', { sessionId, answers });
+            await axios.post('https://back2.azurewebsites.net/submit-phase2-answers', {
+                sessionId,
+                answers
+            });
             navigate('/phase2scores');
         } catch (error) {
             setError(error);
@@ -56,23 +60,30 @@ const Phase2Questions = ({ sessionId }) => {
         <div>
             <h1>Phase 2 Questions</h1>
             <form onSubmit={handleSubmit}>
-                {Array.isArray(questions) && questions.map((question, index) => (
-                    <div key={index}>
-                        <p>{question.text}</p>
-                        {[1, 2, 3, 4, 5].map(score => (
-                            <label key={score}>
-                                <input
-                                    type="radio"
-                                    value={score}
-                                    checked={answers[question.id] === score}
-                                    onChange={() => handleChange(question.id, score)}
-                                />
-                                {score}
-                            </label>
+                {questions.map(group => (
+                    <div key={group.theme}>
+                        <h2>{group.theme}</h2>
+                        {group.questions.map(question => (
+                            <div key={question.id}>
+                                <p>{question.text}</p>
+                                {[1, 2, 3, 4, 5].map(score => (
+                                    <label key={score}>
+                                        <input
+                                            type="radio"
+                                            value={score}
+                                            checked={answers[question.id]?.score === score}
+                                            onChange={() => handleChange(question.id, score, group.theme, question.phase)}
+                                        />
+                                        {score}
+                                    </label>
+                                ))}
+                            </div>
                         ))}
                     </div>
                 ))}
-                <button type="button" onClick={handleSubmit}>Submit Responses</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Submitting...' : 'Submit Responses'}
+                </button>
             </form>
         </div>
     );
