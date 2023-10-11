@@ -16,9 +16,11 @@ const Phase2Questions = ({ sessionId}) => {
                 setLoading(true);
                 // Assuming you have an endpoint to fetch questions by themes
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-questions', { themes: selectedThemes });
+                console.log('Received response:', response.data); // Add log here
                 setQuestions(response.data);
             } catch (error) {
                 setError(error);
+                console.error('Error fetching questions:', error); // Add log here
             } finally {
                 setLoading(false);
             }
