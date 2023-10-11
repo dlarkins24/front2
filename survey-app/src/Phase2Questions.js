@@ -12,6 +12,7 @@ const Phase2Questions = ({ sessionId }) => {
 
     useEffect(() => {
         const fetchQuestions = async () => {
+            console.log('Fetching questions for themes:', selectedThemes);
             try {
                 setLoading(true);
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-questions', { themes: selectedThemes });
@@ -29,18 +30,18 @@ const Phase2Questions = ({ sessionId }) => {
                 setLoading(false);
             }
         };
-        // Add debug log to verify selectedThemes
-        console.log('Selected themes: ', selectedThemes);
+
         fetchQuestions();
     }, [selectedThemes]);
 
     const handleChange = (questionId, value) => {
+        console.log('Setting answer:', value, 'for question ID:', questionId);
         setAnswers(prev => ({ ...prev, [questionId]: value }));
     };
 
     const handleSubmit = async (event) => {
-        // Prevent default form submission behavior
         event.preventDefault();
+        console.log('Submitting answers:', answers);
 
         try {
             setLoading(true);
