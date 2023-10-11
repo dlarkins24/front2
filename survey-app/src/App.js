@@ -27,7 +27,7 @@ function App() {
                     path="/Phase1Scores" 
                     element={sessionId ? <Phase1Scores sessionId={sessionId} /> : <Navigate to="/Phase1Scores" />} 
                 />
-                <Route path="/RegistrationPage" element={sessionId ? <RegistrationPage sessionId={sessionId} /> : <Navigate to="/RegistrationPage" />} />
+                <Route path="/RegistrationPage" element={sessionId ? <RegistrationPage sessionId={sessionId} /> : <Navigate to="/Phase1Scores" />} />
 
                 {/* Default route */}
                 <Route path="/" element={<Navigate to="/welcome" />} />
