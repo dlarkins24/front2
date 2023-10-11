@@ -14,7 +14,7 @@ const Phase2Questions = ({ sessionId, selectedThemes }) => {
             try {
                 setLoading(true);
                 // Assuming you have an endpoint to fetch questions by themes
-                const response = await axios.post('https://back2.azurewebsites.net/api/get-phase2-questions', { themes: selectedThemes });
+                const response = await axios.post('https://back2.azurewebsites.net/get-phase2-questions', { themes: selectedThemes });
                 setQuestions(response.data);
             } catch (error) {
                 setError(error);
@@ -33,7 +33,7 @@ const Phase2Questions = ({ sessionId, selectedThemes }) => {
         try {
             setLoading(true);
             // Assuming you have an endpoint to submit answers
-            await axios.post('https://back2.azurewebsites.net/api/submit-phase2-answers', { sessionId, answers });
+            await axios.post('https://back2.azurewebsites.net/submit-phase2-answers', { sessionId, answers });
             navigate('/phase2scores');  // Navigate to the next page
         } catch (error) {
             setError(error);
