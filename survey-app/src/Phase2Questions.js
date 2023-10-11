@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Phase2Questions = ({ sessionId }) => {
+    console.log('Component render');  // Log at the start of the component function
+    
     const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes'));
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
@@ -11,6 +13,8 @@ const Phase2Questions = ({ sessionId }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log('useEffect running');  // Log inside the useEffect
+        
         const fetchQuestions = async () => {
             console.log('Fetching questions for themes:', selectedThemes);
             try {
