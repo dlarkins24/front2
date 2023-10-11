@@ -19,7 +19,7 @@ const WelcomePage = ({ onSessionStart }) => {
             onSessionStart(sessionId);
 
             // Redirect to the Phase 1 Questions page
-            navigate('/phase1-questions');
+            navigate('/Phase1Questions');
         } catch (error) {
             console.error("Error starting session:", error);
             setError("There was an error starting the session. Please try again.");

@@ -20,7 +20,7 @@ function App() {
             <Routes>
                 <Route path="/welcome" element={<WelcomePage onSessionStart={handleSessionStart} />} />
                 <Route 
-                    path="/phase1-questions" 
+                    path="/Phase1Questions" 
                     element={sessionId ? <Phase1Questions sessionId={sessionId} /> : <Navigate to="/welcome" />} 
                 />
                 <Route 
