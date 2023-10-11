@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Phase2Questions = ({ sessionId}) => {
+const Phase2Questions = ({ sessionId }) => {
     const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes'));
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
@@ -14,13 +14,18 @@ const Phase2Questions = ({ sessionId}) => {
         const fetchQuestions = async () => {
             try {
                 setLoading(true);
-                // Assuming you have an endpoint to fetch questions by themes
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-questions', { themes: selectedThemes });
-                console.log('Received response:', response.data); // Add log here
-                setQuestions(response.data);
+                console.log('Received response:', response.data);
+
+                // Ensure there are questions and the nested questions array is set in state
+                if (response.data.questions && Array.isArray(response.data.questions[0].questions)) {
+                    setQuestions(response.data.questions[0].questions);
+                } else {
+                    throw new Error("Unexpected API response structure");
+                }
             } catch (error) {
                 setError(error);
-                console.error('Error fetching questions:', error); // Add log here
+                console.error('Error fetching questions:', error);
             } finally {
                 setLoading(false);
             }
@@ -35,9 +40,8 @@ const Phase2Questions = ({ sessionId}) => {
     const handleSubmit = async () => {
         try {
             setLoading(true);
-            // Assuming you have an endpoint to submit answers
             await axios.post('https://back2.azurewebsites.net/submit-phase2-answers', { sessionId, answers });
-            navigate('/phase2scores');  // Navigate to the next page
+            navigate('/phase2scores');
         } catch (error) {
             setError(error);
         } finally {
@@ -52,8 +56,8 @@ const Phase2Questions = ({ sessionId}) => {
         <div>
             <h1>Phase 2 Questions</h1>
             <form onSubmit={handleSubmit}>
-                {questions.map(question => (
-                    <div key={question.id}>
+                {Array.isArray(questions) && questions.map((question, index) => (
+                    <div key={index}>
                         <p>{question.text}</p>
                         {[1, 2, 3, 4, 5].map(score => (
                             <label key={score}>
