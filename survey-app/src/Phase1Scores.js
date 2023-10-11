@@ -34,7 +34,7 @@ const Phase1Scores = ({ sessionId }) => {
     };
 
     const beginDeepDive = () => {
-        navigate('/RegistrationPhase');
+        navigate('/RegistrationPage');
     };
 
     const chartData = [
