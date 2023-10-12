@@ -1,7 +1,6 @@
-/* global google */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Chart } from 'react-google-charts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import './App.css';
 
 const Phase2Scores = ({ sessionId }) => {
@@ -37,39 +36,17 @@ const Phase2Scores = ({ sessionId }) => {
         fetchScoreDescriptions();
     }, [sessionId]);
 
-    const handleBarClick = (selectedTheme, score) => {
-        const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
+    const handleBarClick = (data) => {
+        const relevantTheme = scoreDescriptions.find(desc => desc.theme === data.theme);
     
         let relevantDescription = null;
         if (relevantTheme) {
-            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
+            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(data.averageScore));
         }
     
         setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
     };
     
-    const chartEvents = [
-        {
-            eventName: 'ready',
-            callback: ({ chartWrapper }) => {
-                google.visualization.events.addListener(chartWrapper.getChart(), 'select', () => {
-                    const selection = chartWrapper.getChart().getSelection();
-                    if (selection.length > 0) {
-                        const [selectedItem] = selection;
-                        const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
-                        const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
-                        handleBarClick(selectedTheme, score);
-                    }
-                });
-            }
-        }
-    ];
-
-    const chartData = [
-        ['Theme', 'Average Scores'],
-        ...scores.map(score => [score.theme, score.averageScore])
-    ];
-
     return (
         <div className="App">
             <h1>Phase 2 Scores</h1>
@@ -79,26 +56,22 @@ const Phase2Scores = ({ sessionId }) => {
                 <p className="error">{error}</p>
             ) : (
                 <>
-                    <Chart 
-                        width={'100%'}
-                        height={'400px'}
-                        chartType="ColumnChart"
-                        loader={<div>Loading Chart</div>}
-                        data={chartData}
-                        options={{
-                            title: 'Average Scores',
-                            chartArea: { width: '50%' },
-                            hAxis: {
-                                title: 'Average Score',
-                                minValue: 0,
-                            },
-                            vAxis: {
-                                title: 'Theme',
-                            },
-                        }}
-                        events={chartEvents}
-                        rootProps={{ 'data-testid': '1' }}
-                    />
+                    <BarChart
+                        width={500}
+                        height={300}
+                        data={scores}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="theme" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar
+                            dataKey="averageScore"
+                            fill="#8884d8"
+                            onClick={(data) => handleBarClick(data)}
+                        />
+                    </BarChart>
                     {selectedDescription && (
                         <div className="description">
                             <h2>Description</h2>
