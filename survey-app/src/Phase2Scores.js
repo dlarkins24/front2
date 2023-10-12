@@ -41,18 +41,27 @@ const Phase2Scores = ({ sessionId }) => {
 
     const handleBarClick = (selectedTheme, score) => {
         console.log(`handleBarClick triggered with theme: ${selectedTheme} and score: ${score}`);
-        const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
-        
-        console.log("Found relevant theme:", relevantTheme);
+        console.log(`Type of selectedTheme: ${typeof selectedTheme}`);
+        console.log(`Type of score: ${typeof score}`);
+        console.log(`Rounded Score: ${Math.round(score)}`);
     
-        let relevantDescription = null;
-        if (relevantTheme) {
-            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
-            console.log("Found relevant description object:", relevantDescription);
-        }
+        const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
+        console.log("Found relevant theme:", relevantTheme);
         
-        setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
+        if (relevantTheme) {
+            const isScoreAvailable = relevantTheme.scores.some(s => s.score === Math.round(score));
+            console.log(`Is score available in descriptions: ${isScoreAvailable}`);
+    
+            let relevantDescription = null;
+            if (isScoreAvailable) {
+                relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
+                console.log("Found relevant description object:", relevantDescription);
+            }
+        
+            setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
+        }
     };
+    
     
     
     const chartEvents = [
