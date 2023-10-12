@@ -44,7 +44,7 @@ const Phase2Scores = ({ sessionId }) => {
         console.log(`Type of selectedTheme: ${typeof selectedTheme}`);
         console.log(`Type of score: ${typeof score}`);
         console.log(`Rounded Score: ${Math.round(score)}`);
-    
+
         const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
         console.log("Found relevant theme:", relevantTheme);
         
@@ -61,8 +61,6 @@ const Phase2Scores = ({ sessionId }) => {
             setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
         }
     };
-    
-    
     
     const chartEvents = [
         {
@@ -117,6 +115,8 @@ const Phase2Scores = ({ sessionId }) => {
                         events={chartEvents}
                         rootProps={{ 'data-testid': '1' }}
                     />
+                    {/* Added button to manually test handleBarClick */}
+                    <button onClick={() => handleBarClick('Technical Skill', 3)}>Manual Test Click Handler</button>
                     <div className="description">
                         <h2>Description</h2>
                         <p>{selectedDescription || "Click a bar for more information."}</p>
@@ -125,7 +125,6 @@ const Phase2Scores = ({ sessionId }) => {
             )}
         </div>
     );
-    
 };
 
 export default Phase2Scores;
