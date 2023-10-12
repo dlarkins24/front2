@@ -1,9 +1,26 @@
-/* Adapted CSS */
+/* Basic resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  background-color: var(--udl-body-bg);
+  color: var(--udl-dark-text);
+  font-family: 'Arial', sans-serif; /* You may replace with --udl-avatar-font-family if defined */
+}
+
+/* Application wide styling */
 .App {
   text-align: center;
   background-color: var(--udl-body-bg);
   color: var(--udl-dark-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -13,39 +30,36 @@
 
 .App-header {
   background-color: var(--udl-brand-primary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+  width: 100%;
   color: var(--udl-brand-primary-contrast);
 }
 
 .App-link {
   color: var(--udl-brand-secondary);
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
 }
 
-/* Additional styles to reflect the website's CSS */
-
-body {
-  background-color: var(--udl-body-bg);
-  background-image: var(--udl-body-bkg);
-  color: var(--udl-dark-text);
-}
-
+/* Button styling */
 button {
   background-color: var(--udl-brand-primary);
   color: var(--udl-brand-primary-contrast);
-  border-radius: var(--udl-border-radius-medium);
   border: none;
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: var(--udl-border-radius-medium);
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: var(--udl-brand-primary-variant);
+}
+
+button:active, button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--udl-brand-primary-variant);
 }
 
 button:disabled {
@@ -53,16 +67,40 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Error messages */
 .error {
   color: var(--udl-brand-danger);
   background-color: var(--udl-colour-neutral-100);
-  padding: 10px;
-  margin: 10px 0;
+  padding: 15px;
+  margin: 15px 0;
   border-radius: var(--udl-border-radius-small);
 }
 
-/* Your existing animation */
+/* Responsive design */
+@media (max-width: 768px) {
+  .App-logo {
+      height: 20vmin;
+  }
+  
+  .App-header {
+      padding: 10px;
+  }
 
+  button {
+      padding: 8px 16px;
+  }
+}
+
+/* Additional states for accessibility */
+.App-link:visited {
+  color: var(--udl-brand-secondary-variant);
+}
+
+.App-link:focus {
+  outline: 2px solid var(--udl-brand-secondary);
+}
+
+/* Animations */
 @keyframes App-logo-spin {
   from {
       transform: rotate(0deg);
@@ -71,4 +109,3 @@ button:disabled {
       transform: rotate(360deg);
   }
 }
-

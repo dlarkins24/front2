@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chart } from 'react-google-charts';
+import './app.css';
 
 const Phase2Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);
@@ -13,7 +14,6 @@ const Phase2Scores = ({ sessionId }) => {
         const fetchScores = async () => {
             try {
                 setLoading(true);
-                // Updated to use the new endpoint for phase 2 averages
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-averages', { sessionId });
                 setScores(response.data.scores);
             } catch (error) {
@@ -25,7 +25,6 @@ const Phase2Scores = ({ sessionId }) => {
 
         const fetchScoreDescriptions = async () => {
             try {
-                // This is a placeholder endpoint and should be replaced with the actual one when available
                 const response = await axios.get('https://back2.azurewebsites.net/get-phase2-score-descriptions');
                 setScoreDescriptions(response.data.descriptions);
             } catch (error) {
@@ -38,12 +37,20 @@ const Phase2Scores = ({ sessionId }) => {
     }, [sessionId]);
 
     const handleBarClick = (selectedTheme, score) => {
-        const relevantDescription = scoreDescriptions.find(
-            desc => desc.theme === selectedTheme && desc.score === Math.round(score)
+        const relevantTheme = scoreDescriptions.find(
+            desc => desc.theme === selectedTheme
         );
+    
+        let relevantDescription = null;
+        if (relevantTheme) {
+            relevantDescription = relevantTheme.scores.find(
+                s => s.score === Math.round(score)
+            );
+        }
+    
         setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
     };
-
+    
     const chartEvents = [
         {
             eventName: 'select',

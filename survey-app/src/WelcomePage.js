@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './app.css';
 
 const WelcomePage = ({ onSessionStart }) => {
     const [loading, setLoading] = useState(false);
