@@ -37,15 +37,15 @@ const Phase2Scores = ({ sessionId }) => {
     }, [sessionId]);
 
     const handleBarClick = (data) => {
-        const relevantTheme = scoreDescriptions.find(desc => desc.theme === data.theme);
+        const relevantTheme = scoreDescriptions.find(desc => desc.theme === data.payload.theme);
     
         let relevantDescription = null;
         if (relevantTheme) {
-            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(data.averageScore));
+            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(data.payload.averageScore));
         }
     
         setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
-    };
+    };    
     
     return (
         <div className="App">
