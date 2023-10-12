@@ -44,7 +44,7 @@ const Phase2Scores = ({ sessionId }) => {
         console.log(`Type of selectedTheme: ${typeof selectedTheme}`);
         console.log(`Type of score: ${typeof score}`);
         console.log(`Rounded Score: ${Math.round(score)}`);
-
+    
         const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
         console.log("Found relevant theme:", relevantTheme);
         
@@ -64,19 +64,22 @@ const Phase2Scores = ({ sessionId }) => {
     
     const chartEvents = [
         {
-            eventName: 'select',
-            callback: ({ chartWrapper }) => {
-                console.log("Chart bar clicked (Event fired)!");
+            eventName: 'ready',
+            callback: ({ chartWrapper, google }) => {
+                console.log("Chart is ready for interaction.");
                 const chart = chartWrapper.getChart();
-                const selection = chart.getSelection();
-                console.log("Selection:", selection);
-                if (selection.length > 0) {
-                    const [selectedItem] = selection;
-                    const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
-                    const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
-                    console.log(`Selected Theme: ${selectedTheme}, Score: ${score}`);
-                    handleBarClick(selectedTheme, score);
-                }
+                google.visualization.events.addListener(chart, 'select', () => {
+                    console.log("Bar clicked (Event fired)!");
+                    const selection = chart.getSelection();
+                    console.log("Selection:", selection);
+                    if (selection.length > 0) {
+                        const [selectedItem] = selection;
+                        const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
+                        const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
+                        console.log(`Selected Theme: ${selectedTheme}, Score: ${score}`);
+                        handleBarClick(selectedTheme, score);
+                    }
+                });
             },
         },
     ];
@@ -115,8 +118,6 @@ const Phase2Scores = ({ sessionId }) => {
                         events={chartEvents}
                         rootProps={{ 'data-testid': '1' }}
                     />
-                    {/* Added button to manually test handleBarClick */}
-                    <button onClick={() => handleBarClick('Technical Skill', 3)}>Manual Test Click Handler</button>
                     <div className="description">
                         <h2>Description</h2>
                         <p>{selectedDescription || "Click a bar for more information."}</p>
