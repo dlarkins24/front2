@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './app.css';
+import './App.css';
 
 const RegistrationPage = ({ sessionId }) => {
     const [formData, setFormData] = useState({

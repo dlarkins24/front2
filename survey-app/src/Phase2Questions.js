@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './app.css';
+import './App.css';
 
 const Phase2Questions = ({ sessionId }) => {
     const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes'));

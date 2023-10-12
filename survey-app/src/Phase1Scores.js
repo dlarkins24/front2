@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Chart } from 'react-google-charts';
-import './app.css';
+import './App.css';
 
 const Phase1Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);

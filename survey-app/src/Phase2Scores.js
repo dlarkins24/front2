@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chart } from 'react-google-charts';
-import './app.css';
+import './App.css';
 
 const Phase2Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);
