@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Phase2Questions = ({ sessionId }) => {
-    console.log('Component render');
-
     const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes'));
     const [allQuestions, setAllQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
@@ -13,44 +11,34 @@ const Phase2Questions = ({ sessionId }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('useEffect running');
-
         const fetchQuestions = async () => {
-            console.log('Fetching all questions');
             try {
                 setLoading(true);
                 const response = await axios.get('https://back2.azurewebsites.net/get-phase2-questions'); 
-                console.log('Received response:', response.data);
                 setAllQuestions(response.data.questions);
             } catch (error) {
                 setError(error);
-                console.error('Error fetching questions:', error);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchQuestions();
     }, []);
 
     const questions = useMemo(() => {
-        console.log('Filtering questions for themes:', selectedThemes);
         return allQuestions.filter(q => selectedThemes.includes(q.theme));
     }, [allQuestions, selectedThemes]);
 
-    const handleChange = (questionId, value) => {
-        console.log('Setting answer:', value, 'for question ID:', questionId);
-        setAnswers(prev => ({ ...prev, [questionId]: value }));
+    const handleChange = (questionId, score, theme, phase) => {
+        setAnswers(prev => ({ ...prev, [questionId]: { score, theme, phase } }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Submitting answers:', answers);
-
         try {
             setLoading(true);
-            await axios.post('https://back2.azurewebsites.net/submit-phase2-answers', { sessionId, answers });
-            navigate('/phase2scores');
+            await axios.post('https://back2.azurewebsites.net/submit-phase2-responses', { sessionId, responses: answers });
+            navigate('/Phase2Scores');
         } catch (error) {
             setError(error);
         } finally {
@@ -71,15 +59,15 @@ const Phase2Questions = ({ sessionId }) => {
                         {group.questions.map((question) => (
                             <div key={question.id}>
                                 <p>{question.text}</p>
-                                {[1, 2, 3, 4, 5].map(score => (
-                                    <label key={score}>
+                                {question.options.map((option) => (
+                                    <label key={option.score}>
                                         <input
                                             type="radio"
-                                            value={score}
-                                            checked={answers[question.id] === score}
-                                            onChange={() => handleChange(question.id, score)}
+                                            value={option.score}
+                                            checked={answers[question.id]?.score === option.score}
+                                            onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
                                         />
-                                        {score}
+                                        {option.text}
                                     </label>
                                 ))}
                             </div>

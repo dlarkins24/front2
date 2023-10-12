@@ -5,7 +5,7 @@ import Phase1Questions from './Phase1Questions';
 import Phase1Scores from './Phase1Scores';
 import RegistrationPage from './RegistrationPage';
 import Phase2Questions from './Phase2Questions';
-
+import Phase2Scores from './Phase2Scores';
 function App() {
     // Initialize sessionId with a value from localStorage
     const [sessionId, setSessionId] = useState(() => localStorage.getItem('sessionId'));
@@ -32,6 +32,10 @@ function App() {
                 <Route 
                     path="/Phase2Questions" 
                     element={sessionId ? <Phase2Questions sessionId={sessionId} /> : <Navigate to="/welcome" />} 
+                />
+                <Route 
+                    path="/Phase2Scores" 
+                    element={sessionId ? <Phase2Scores sessionId={sessionId} /> : <Navigate to="/welcome" />} 
                 />
                 {/* Default route */}
                 <Route path="/" element={<Navigate to="/welcome" />} />
