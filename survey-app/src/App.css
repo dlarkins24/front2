@@ -1,5 +1,9 @@
+/* Adapted CSS */
+
 .App {
   text-align: center;
+  background-color: var(--udl-body-bg);
+  color: var(--udl-dark-text);
 }
 
 .App-logo {
@@ -7,32 +11,64 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
+  background-color: var(--udl-brand-primary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--udl-brand-primary-contrast);
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--udl-brand-secondary);
 }
+
+/* Additional styles to reflect the website's CSS */
+
+body {
+  background-color: var(--udl-body-bg);
+  background-image: var(--udl-body-bkg);
+  color: var(--udl-dark-text);
+}
+
+button {
+  background-color: var(--udl-brand-primary);
+  color: var(--udl-brand-primary-contrast);
+  border-radius: var(--udl-border-radius-medium);
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--udl-brand-primary-variant);
+}
+
+button:disabled {
+  background-color: var(--udl-colour-neutral-200);
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--udl-brand-danger);
+  background-color: var(--udl-colour-neutral-100);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: var(--udl-border-radius-small);
+}
+
+/* Your existing animation */
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
+
