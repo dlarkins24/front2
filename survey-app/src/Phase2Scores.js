@@ -15,8 +15,10 @@ const Phase2Scores = ({ sessionId }) => {
             try {
                 setLoading(true);
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-averages', { sessionId });
+                console.log("Scores fetched:", response.data.scores);
                 setScores(response.data.scores);
             } catch (error) {
+                console.error("Error fetching scores:", error);
                 setError("Error fetching average scores. Please try again.");
             } finally {
                 setLoading(false);
@@ -26,6 +28,7 @@ const Phase2Scores = ({ sessionId }) => {
         const fetchScoreDescriptions = async () => {
             try {
                 const response = await axios.get('https://back2.azurewebsites.net/get-phase2-score-descriptions');
+                console.log("Score descriptions fetched:", response.data.descriptions);
                 setScoreDescriptions(response.data.descriptions);
             } catch (error) {
                 console.error("Error fetching score descriptions:", error);
@@ -37,6 +40,7 @@ const Phase2Scores = ({ sessionId }) => {
     }, [sessionId]);
 
     const handleBarClick = (selectedTheme, score) => {
+        console.log("Bar clicked, Theme:", selectedTheme, "Score:", score);
         const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
     
         let relevantDescription = null;
@@ -51,12 +55,15 @@ const Phase2Scores = ({ sessionId }) => {
         {
             eventName: 'select',
             callback: ({ chartWrapper }) => {
+                console.log("Chart bar clicked (Event fired)!");
                 const chart = chartWrapper.getChart();
                 const selection = chart.getSelection();
+                console.log("Selection:", selection);
                 if (selection.length > 0) {
                     const [selectedItem] = selection;
                     const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
                     const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
+                    console.log(`Selected Theme: ${selectedTheme}, Score: ${score}`);
                     handleBarClick(selectedTheme, score);
                 }
             },
