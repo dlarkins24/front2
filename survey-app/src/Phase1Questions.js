@@ -55,15 +55,15 @@ const Phase1Questions = ({ sessionId }) => {
                     {group.questions.map(question => (
                         <div key={question.id}>
                             <p>{question.text}</p>
-                            {[1, 2, 3, 4, 5].map(score => (
-                                <label key={score}>
+                            {question.options.map(option => (
+                                <label key={option.score}>
                                     <input
                                         type="radio"
-                                        value={score}
-                                        checked={answers[question.id]?.score === score}
-                                        onChange={() => handleChange(question.id, score, group.theme, question.phase)}
+                                        value={option.score}
+                                        checked={answers[question.id]?.score === option.score}
+                                        onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
                                     />
-                                    {score}
+                                    {option.text}
                                 </label>
                             ))}
                         </div>
