@@ -1,32 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Phase2Questions = ({ sessionId }) => {
-    console.log('Component render');  // Log at the start of the component function
-    
+    console.log('Component render');
+
     const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes'));
-    const [questions, setQuestions] = useState([]);
+    const [allQuestions, setAllQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('useEffect running');  // Log inside the useEffect
-        
+        console.log('useEffect running');
+
         const fetchQuestions = async () => {
-            console.log('Fetching questions for themes:', selectedThemes);
+            console.log('Fetching all questions');
             try {
                 setLoading(true);
-                const response = await axios.post('https://back2.azurewebsites.net/get-phase2-questions', { themes: selectedThemes });
+                const response = await axios.get('https://back2.azurewebsites.net/get-phase2-questions'); 
                 console.log('Received response:', response.data);
-
-                if (response.data.questions && Array.isArray(response.data.questions)) {
-                    setQuestions(response.data.questions);
-                } else {
-                    throw new Error("Unexpected API response structure");
-                }
+                setAllQuestions(response.data.questions);
             } catch (error) {
                 setError(error);
                 console.error('Error fetching questions:', error);
@@ -36,7 +31,12 @@ const Phase2Questions = ({ sessionId }) => {
         };
 
         fetchQuestions();
-    }, [selectedThemes]);
+    }, []);
+
+    const questions = useMemo(() => {
+        console.log('Filtering questions for themes:', selectedThemes);
+        return allQuestions.filter(q => selectedThemes.includes(q.theme));
+    }, [allQuestions, selectedThemes]);
 
     const handleChange = (questionId, value) => {
         console.log('Setting answer:', value, 'for question ID:', questionId);
