@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
+import { Chart } from 'react-google-charts';
 import './App.css';
 
 const Phase2Scores = ({ sessionId }) => {
@@ -15,8 +15,10 @@ const Phase2Scores = ({ sessionId }) => {
             try {
                 setLoading(true);
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-averages', { sessionId });
+                console.log("Scores fetched:", response.data.scores);
                 setScores(response.data.scores);
             } catch (error) {
+                console.error("Error fetching scores:", error);
                 setError("Error fetching average scores. Please try again.");
             } finally {
                 setLoading(false);
@@ -26,6 +28,7 @@ const Phase2Scores = ({ sessionId }) => {
         const fetchScoreDescriptions = async () => {
             try {
                 const response = await axios.get('https://back2.azurewebsites.net/get-phase2-score-descriptions');
+                console.log("Score descriptions fetched:", response.data.descriptions);
                 setScoreDescriptions(response.data.descriptions);
             } catch (error) {
                 console.error("Error fetching score descriptions:", error);
@@ -36,37 +39,45 @@ const Phase2Scores = ({ sessionId }) => {
         fetchScoreDescriptions();
     }, [sessionId]);
 
-    const handleBarClick = (elements) => {
-        if (elements.length > 0) {
-            const { index } = elements[0];
-            const selectedScore = scores[index];
-            const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedScore.theme);
-
-            let relevantDescription = null;
-            if (relevantTheme) {
-                relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(selectedScore.averageScore));
-            }
+    const handleBarClick = (selectedTheme, score) => {
+        console.log(`handleBarClick triggered with theme: ${selectedTheme} and score: ${score}`);
+        const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
         
-            setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
+        console.log("Found relevant theme:", relevantTheme);
+    
+        let relevantDescription = null;
+        if (relevantTheme) {
+            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
+            console.log("Found relevant description object:", relevantDescription);
         }
+        
+        setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
     };
+    
+    
+    const chartEvents = [
+        {
+            eventName: 'select',
+            callback: ({ chartWrapper }) => {
+                console.log("Chart bar clicked (Event fired)!");
+                const chart = chartWrapper.getChart();
+                const selection = chart.getSelection();
+                console.log("Selection:", selection);
+                if (selection.length > 0) {
+                    const [selectedItem] = selection;
+                    const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
+                    const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
+                    console.log(`Selected Theme: ${selectedTheme}, Score: ${score}`);
+                    handleBarClick(selectedTheme, score);
+                }
+            },
+        },
+    ];
 
-    const data = {
-        labels: scores.map(score => score.theme),
-        datasets: [
-            {
-                label: 'Average Scores',
-                data: scores.map(score => score.averageScore),
-                backgroundColor: '#8884d8'
-            }
-        ]
-    };
-
-    const options = {
-        scales: {
-            y: { beginAtZero: true }
-        }
-    };
+    const chartData = [
+        ['Theme', 'Average Scores'],
+        ...scores.map(score => [score.theme, score.averageScore])
+    ];
 
     return (
         <div className="App">
@@ -77,10 +88,25 @@ const Phase2Scores = ({ sessionId }) => {
                 <p className="error">{error}</p>
             ) : (
                 <>
-                    <Bar 
-                        data={data} 
-                        options={options}
-                        getElementAtEvent={(elements) => handleBarClick(elements)}
+                    <Chart 
+                        width={'100%'}
+                        height={'400px'}
+                        chartType="Bar"
+                        loader={<div>Loading Chart</div>}
+                        data={chartData}
+                        options={{
+                            title: 'Average Scores',
+                            chartArea: { width: '50%' },
+                            hAxis: {
+                                title: 'Average Score',
+                                minValue: 0,
+                            },
+                            vAxis: {
+                                title: 'Theme',
+                            },
+                        }}
+                        events={chartEvents}
+                        rootProps={{ 'data-testid': '1' }}
                     />
                     {selectedDescription && (
                         <div className="description">
