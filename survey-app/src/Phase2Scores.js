@@ -1,3 +1,4 @@
+/* global google */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chart } from 'react-google-charts';
