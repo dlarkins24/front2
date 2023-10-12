@@ -91,7 +91,7 @@ const Phase2Scores = ({ sessionId }) => {
                     <Chart 
                         width={'100%'}
                         height={'400px'}
-                        chartType="Bar"
+                        chartType="ColumnChart"
                         loader={<div>Loading Chart</div>}
                         data={chartData}
                         options={{
@@ -108,16 +108,15 @@ const Phase2Scores = ({ sessionId }) => {
                         events={chartEvents}
                         rootProps={{ 'data-testid': '1' }}
                     />
-                    {selectedDescription && (
-                        <div className="description">
-                            <h2>Description</h2>
-                            <p>{selectedDescription}</p>
-                        </div>
-                    )}
+                    <div className="description">
+                        <h2>Description</h2>
+                        <p>{selectedDescription || "Click a bar for more information."}</p>
+                    </div>
                 </>
             )}
         </div>
     );
+    
 };
 
 export default Phase2Scores;
