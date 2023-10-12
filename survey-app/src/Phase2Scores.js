@@ -37,15 +37,11 @@ const Phase2Scores = ({ sessionId }) => {
     }, [sessionId]);
 
     const handleBarClick = (selectedTheme, score) => {
-        const relevantTheme = scoreDescriptions.find(
-            desc => desc.theme === selectedTheme
-        );
+        const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
     
         let relevantDescription = null;
         if (relevantTheme) {
-            relevantDescription = relevantTheme.scores.find(
-                s => s.score === Math.round(score)
-            );
+            relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
         }
     
         setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
@@ -73,7 +69,7 @@ const Phase2Scores = ({ sessionId }) => {
     ];
 
     return (
-        <div>
+        <div className="App">
             <h1>Phase 2 Scores</h1>
             {loading ? (
                 <p>Loading...</p>
@@ -102,7 +98,7 @@ const Phase2Scores = ({ sessionId }) => {
                         rootProps={{ 'data-testid': '1' }}
                     />
                     {selectedDescription && (
-                        <div>
+                        <div className="description">
                             <h2>Description</h2>
                             <p>{selectedDescription}</p>
                         </div>

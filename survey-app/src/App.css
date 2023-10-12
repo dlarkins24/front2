@@ -1,111 +1,107 @@
-/* Basic resets */
-* {
+/* CSS Variables */
+:root {
+  --color-content-bg-alt: #f5f5f5;
+  --color-content-primary-faded: #999;
+  --font-family: Poppins, sans-serif;
+  --font-size: 16px;
+  --line-height: 25px;
+  --font-weight: 300;
+  --bold-font-weight: 700;
+  --color-content-bg: #fff;
+  --color-content-text: #333;
+  --color-content-link: #00ab8e;
+  --color-content-link-hover: #2c103d;
+  --color-content-primary: #00ab8e;
+  --color-content-secondary: #3c1053;
+  --color-content-faded: #999;
+}
+
+/* Basic Resets */
+*, *::before, *::after {
   box-sizing: border-box;
+}
+
+body, html {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 body {
-  background-color: var(--udl-body-bg);
-  color: var(--udl-dark-text);
-  font-family: 'Arial', sans-serif; /* You may replace with --udl-avatar-font-family if defined */
+  background: var(--color-content-bg-alt);
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: var(--color-content-primary-faded);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
 }
 
-/* Application wide styling */
-.App {
-  text-align: center;
-  background-color: var(--udl-body-bg);
-  color: var(--udl-dark-text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* Headers */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-family);
+  font-weight: var(--bold-font-weight);
+  margin-bottom: 0.6em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: var(--udl-brand-primary);
-  padding: 20px;
-  width: 100%;
-  color: var(--udl-brand-primary-contrast);
-}
-
-.App-link {
-  color: var(--udl-brand-secondary);
+/* Links */
+a {
+  color: var(--color-content-link);
   text-decoration: none;
-  padding: 10px;
-  display: inline-block;
+}
+
+a:hover {
+  color: var(--color-content-link-hover);
 }
 
 /* Button styling */
 button {
-  background-color: var(--udl-brand-primary);
-  color: var(--udl-brand-primary-contrast);
+  background-color: var(--color-content-primary);
+  color: var(--color-content-bg);
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: var(--udl-border-radius-medium);
+  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: var(--udl-brand-primary-variant);
+  background-color: var(--color-content-secondary);
 }
 
 button:active, button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--udl-brand-primary-variant);
+  box-shadow: 0 0 0 2px var(--color-content-secondary);
 }
 
 button:disabled {
-  background-color: var(--udl-colour-neutral-200);
+  background-color: var(--color-content-faded);
   cursor: not-allowed;
 }
 
 /* Error messages */
 .error {
-  color: var(--udl-brand-danger);
-  background-color: var(--udl-colour-neutral-100);
+  color: #D9534F;  /* Red color for error, not defined as variable */
+  background-color: var(--color-content-bg-alt);
   padding: 15px;
   margin: 15px 0;
-  border-radius: var(--udl-border-radius-small);
+  border-radius: 4px;  /* A standard for a slightly rounded border */
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .App-logo {
-      height: 20vmin;
-  }
-  
-  .App-header {
-      padding: 10px;
-  }
-
-  button {
-      padding: 8px 16px;
+  body {
+      font-size: 14px;  /* Slightly smaller text for small screens */
+      line-height: 22px;
   }
 }
 
 /* Additional states for accessibility */
-.App-link:visited {
-  color: var(--udl-brand-secondary-variant);
+a:visited {
+  color: var(--color-content-faded);
 }
 
-.App-link:focus {
-  outline: 2px solid var(--udl-brand-secondary);
-}
-
-/* Animations */
-@keyframes App-logo-spin {
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-      transform: rotate(360deg);
-  }
+a:focus {
+  outline: 2px solid var(--color-content-primary);
 }
