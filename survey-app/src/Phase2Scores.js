@@ -15,10 +15,8 @@ const Phase2Scores = ({ sessionId }) => {
             try {
                 setLoading(true);
                 const response = await axios.post('https://back2.azurewebsites.net/get-phase2-averages', { sessionId });
-                console.log("Scores fetched:", response.data.scores);
                 setScores(response.data.scores);
             } catch (error) {
-                console.error("Error fetching scores:", error);
                 setError("Error fetching average scores. Please try again.");
             } finally {
                 setLoading(false);
@@ -28,7 +26,6 @@ const Phase2Scores = ({ sessionId }) => {
         const fetchScoreDescriptions = async () => {
             try {
                 const response = await axios.get('https://back2.azurewebsites.net/get-phase2-score-descriptions');
-                console.log("Score descriptions fetched:", response.data.descriptions);
                 setScoreDescriptions(response.data.descriptions);
             } catch (error) {
                 console.error("Error fetching score descriptions:", error);
@@ -40,38 +37,31 @@ const Phase2Scores = ({ sessionId }) => {
     }, [sessionId]);
 
     const handleBarClick = (selectedTheme, score) => {
-        console.log(`handleBarClick triggered with theme: ${selectedTheme} and score: ${score}`);
         const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
-        
-        console.log("Found relevant theme:", relevantTheme);
     
         let relevantDescription = null;
         if (relevantTheme) {
             relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
-            console.log("Found relevant description object:", relevantDescription);
         }
-        
+    
         setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
     };
     
-    
     const chartEvents = [
         {
-            eventName: 'select',
+            eventName: 'ready',
             callback: ({ chartWrapper }) => {
-                console.log("Chart bar clicked (Event fired)!");
-                const chart = chartWrapper.getChart();
-                const selection = chart.getSelection();
-                console.log("Selection:", selection);
-                if (selection.length > 0) {
-                    const [selectedItem] = selection;
-                    const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
-                    const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
-                    console.log(`Selected Theme: ${selectedTheme}, Score: ${score}`);
-                    handleBarClick(selectedTheme, score);
-                }
-            },
-        },
+                google.visualization.events.addListener(chartWrapper.getChart(), 'select', () => {
+                    const selection = chartWrapper.getChart().getSelection();
+                    if (selection.length > 0) {
+                        const [selectedItem] = selection;
+                        const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
+                        const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
+                        handleBarClick(selectedTheme, score);
+                    }
+                });
+            }
+        }
     ];
 
     const chartData = [
@@ -91,7 +81,7 @@ const Phase2Scores = ({ sessionId }) => {
                     <Chart 
                         width={'100%'}
                         height={'400px'}
-                        chartType="Bar"
+                        chartType="ColumnChart"
                         loader={<div>Loading Chart</div>}
                         data={chartData}
                         options={{
