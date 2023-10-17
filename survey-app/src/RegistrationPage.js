@@ -7,9 +7,12 @@ const RegistrationPage = ({ sessionId }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        role: ''
+        role: '',
+        organization: '',
+        department: ''
     });
     const [roles, setRoles] = useState([]);
+    const [departments, setDepartments] = useState([]); // New state for departments
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -22,7 +25,18 @@ const RegistrationPage = ({ sessionId }) => {
                 setError("Error fetching roles. Please try again later.");
             }
         };
+
+        const fetchDepartments = async () => { // New function to fetch departments
+            try {
+                const response = await axios.get('https://back2.azurewebsites.net/get-departments');
+                setDepartments(response.data.departments);
+            } catch (e) {
+                setError("Error fetching departments. Please try again later.");
+            }
+        };
+
         fetchRoles();
+        fetchDepartments();
     }, []);
 
     const handleChange = (e) => {
@@ -36,7 +50,6 @@ const RegistrationPage = ({ sessionId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Send registration data to the server
             await axios.post('https://back2.azurewebsites.net/register-user', { ...formData, sessionId });
             navigate('/Phase2Questions');
         } catch (e) {
@@ -63,6 +76,19 @@ const RegistrationPage = ({ sessionId }) => {
                         <option value="" disabled>Select your role</option>
                         {roles.map(role => (
                             <option key={role} value={role}>{role}</option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="organization">Organization:</label>
+                    <input type="text" name="organization" value={formData.organization} onChange={handleChange} required />
+                </div>
+                <div>
+                    <label htmlFor="department">Department:</label>
+                    <select name="department" value={formData.department} onChange={handleChange} required>
+                        <option value="" disabled>Select your department</option>
+                        {departments.map(dept => (
+                            <option key={dept} value={dept}>{dept}</option>
                         ))}
                     </select>
                 </div>
