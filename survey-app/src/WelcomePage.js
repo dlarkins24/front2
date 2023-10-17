@@ -29,15 +29,23 @@ const WelcomePage = ({ onSessionStart }) => {
         }
     };
 
-    return (
-        <div>
-            <h1>Welcome to the Assessment</h1>
-            <button onClick={startSession} disabled={loading}>
+// In your WelcomePage component's return statement...
+
+return (
+    <div className="app-container">
+        <div className="welcome-container">
+            <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assesment</h1>
+            <button 
+                className="start-button" 
+                onClick={startSession} 
+                disabled={loading}>
                 {loading ? 'Starting...' : 'Start Assessment'}
             </button>
             {error && <p className="error">{error}</p>}
         </div>
-    );
+    </div>
+);
+
 };
 
 export default WelcomePage;

@@ -105,3 +105,53 @@ a:visited {
 a:focus {
   outline: 2px solid var(--color-content-primary);
 }
+
+/* Existing CSS content... */
+
+/* New styles for the welcome page */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This ensures your container takes up the full view height */
+  background-color: var(--color-content-bg-alt); /* Using your existing variable */
+}
+
+.welcome-container {
+  text-align: center;
+  background-color: var(--color-content-bg); /* Existing white background */
+  padding: 50px;
+  border-radius: 10px; /* For rounded corners */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+.welcome-title {
+  margin-bottom: 20px;
+  color: var(--color-content-text); /* Existing text color */
+  font-weight: var(--bold-font-weight); /* Using your bold weight for the title */
+}
+
+.start-button {
+  /* Most button styles are inherited, adding only specific changes */
+  padding: 10px 20px;
+  font-size: var(--font-size);
+  border-radius: 5px; /* Slightly more rounded than the default */
+  transition: background-color 0.3s ease;
+  font-weight: var(--bold-font-weight); /* Making text bold */
+}
+
+.start-button:hover {
+  background-color: var(--color-content-link-hover); /* Using your hover color */
+}
+
+.start-button:disabled {
+  background-color: var(--color-content-faded); /* Existing faded color */
+  cursor: not-allowed;
+}
+
+/* If you want the error message to stand out more, you might consider adding more styles */
+.error {
+  /* Existing styles... */
+  border: 1px solid #D9534F; /* If you want a border around the error message */
+  /* Other styling as needed */
+}
