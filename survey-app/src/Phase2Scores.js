@@ -6,7 +6,6 @@ import './App.css';
 const Phase2Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);
     const [scoreDescriptions, setScoreDescriptions] = useState([]);
-    const [selectedDescription, setSelectedDescription] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -39,50 +38,7 @@ const Phase2Scores = ({ sessionId }) => {
         fetchScoreDescriptions();
     }, [sessionId]);
 
-    const handleBarClick = (selectedTheme, score) => {
-        console.log(`handleBarClick triggered with theme: ${selectedTheme} and score: ${score}`);
-        console.log(`Type of selectedTheme: ${typeof selectedTheme}`);
-        console.log(`Type of score: ${typeof score}`);
-        console.log(`Rounded Score: ${Math.round(score)}`);
-    
-        const relevantTheme = scoreDescriptions.find(desc => desc.theme === selectedTheme);
-        console.log("Found relevant theme:", relevantTheme);
-        
-        if (relevantTheme) {
-            const isScoreAvailable = relevantTheme.scores.some(s => s.score === Math.round(score));
-            console.log(`Is score available in descriptions: ${isScoreAvailable}`);
-    
-            let relevantDescription = null;
-            if (isScoreAvailable) {
-                relevantDescription = relevantTheme.scores.find(s => s.score === Math.round(score));
-                console.log("Found relevant description object:", relevantDescription);
-            }
-        
-            setSelectedDescription(relevantDescription ? relevantDescription.description : "No description available.");
-        }
-    };
-    
-    const chartEvents = [
-        {
-            eventName: 'ready',
-            callback: ({ chartWrapper, google }) => {
-                console.log("Chart is ready for interaction.");
-                const chart = chartWrapper.getChart();
-                google.visualization.events.addListener(chart, 'select', () => {
-                    console.log("Bar clicked (Event fired)!");
-                    const selection = chart.getSelection();
-                    console.log("Selection:", selection);
-                    if (selection.length > 0) {
-                        const [selectedItem] = selection;
-                        const selectedTheme = chartWrapper.getDataTable().getValue(selectedItem.row, 0);
-                        const score = chartWrapper.getDataTable().getValue(selectedItem.row, 1);
-                        console.log(`Selected Theme: ${selectedTheme}, Score: ${score}`);
-                        handleBarClick(selectedTheme, score);
-                    }
-                });
-            },
-        },
-    ];
+    // We've removed the handleBarClick and chartEvents since we no longer need to handle graph interactions.
 
     const chartData = [
         ['Theme', 'Average Scores'],
@@ -115,12 +71,24 @@ const Phase2Scores = ({ sessionId }) => {
                                 title: 'Theme',
                             },
                         }}
-                        events={chartEvents}
+                        // Removed events property because it's not needed
                         rootProps={{ 'data-testid': '1' }}
                     />
-                    <div className="description">
-                        <h2>Description</h2>
-                        <p>{selectedDescription || "Click a bar for more information."}</p>
+                    {/* Adjusted the section below to display all descriptions */}
+                    <div className="descriptions-section">
+                        <h2>Descriptions</h2>
+                        {scoreDescriptions.length > 0 ? (
+                            scoreDescriptions.map((desc, index) => (
+                                <div key={index} className="description-item">
+                                    <h3>{desc.theme}</h3>
+                                    {desc.scores.map((score, scoreIndex) => (
+                                        <p key={scoreIndex}>{score.description}</p>
+                                    ))}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No descriptions available.</p>
+                        )}
                     </div>
                 </>
             )}
