@@ -6,50 +6,60 @@ import './App.css';
 const Phase2Scores = ({ sessionId }) => {
     const [scores, setScores] = useState([]);
     const [scoreDescriptions, setScoreDescriptions] = useState([]);
-    const [relevantDescriptions, setRelevantDescriptions] = useState([]); // New state
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchScores = async () => {
-            setLoading(true);
             try {
-                const responseScores = await axios.post('https://back2.azurewebsites.net/get-phase2-averages', { sessionId });
-                setScores(responseScores.data.scores);
-
-                const responseDescriptions = await axios.get('https://back2.azurewebsites.net/get-phase2-score-descriptions');
-                setScoreDescriptions(responseDescriptions.data.descriptions);
-
-                // After getting the scores and descriptions, find the relevant descriptions for each score.
-                const relevantDescriptions = responseScores.data.scores.map(score => {
-                    const relevantTheme = responseDescriptions.data.descriptions.find(desc => desc.theme === score.theme);
-                    if (relevantTheme) {
-                        const roundedScore = Math.round(score.averageScore);
-                        const descriptionForScore = relevantTheme.scores.find(s => s.score === roundedScore);
-                        return {
-                            theme: score.theme,
-                            description: descriptionForScore ? descriptionForScore.description : "No description available.",
-                        };
-                    }
-                    return { theme: score.theme, description: "No description available." };
-                });
-
-                setRelevantDescriptions(relevantDescriptions);
+                setLoading(true);
+                const response = await axios.post('https://back2.azurewebsites.net/get-phase2-averages', { sessionId });
+                setScores(response.data.scores);
             } catch (error) {
-                console.error("Error fetching data:", error);
-                setError("Error fetching data. Please try again.");
+                setError("Error fetching average scores. Please try again.");
             } finally {
                 setLoading(false);
             }
         };
 
+        const fetchScoreDescriptions = async () => {
+            try {
+                const response = await axios.get('https://back2.azurewebsites.net/get-phase2-score-descriptions');
+                setScoreDescriptions(response.data.descriptions);
+            } catch (error) {
+                console.error("Error fetching score descriptions:", error);
+            }
+        };
+
         fetchScores();
+        fetchScoreDescriptions();
     }, [sessionId]);
 
+    // This function helps to find the description based on the score
+    const getDescriptionForScore = (theme, score) => {
+        const relevantThemeDescriptions = scoreDescriptions.find(desc => desc.theme === theme);
+        if (relevantThemeDescriptions) {
+            const roundedScore = Math.round(score);
+            const descriptionObj = relevantThemeDescriptions.scores.find(s => s.score === roundedScore);
+            return descriptionObj ? descriptionObj.description : "No description available.";
+        }
+        return "Description not found.";
+    };
+
+    // Preparing data for the Chart and descriptions
     const chartData = [
         ['Theme', 'Average Scores'],
-        ...scores.map(score => [score.theme, score.averageScore]),
+        ...scores.map(score => [score.theme, score.averageScore])
     ];
+
+    const descriptionsList = scores.map(score => {
+        return (
+            <div key={score.theme}>
+                <h3>{score.theme}</h3>
+                <p>{getDescriptionForScore(score.theme, score.averageScore)}</p>
+            </div>
+        );
+    });
 
     return (
         <div className="App">
@@ -77,16 +87,11 @@ const Phase2Scores = ({ sessionId }) => {
                                 title: 'Theme',
                             },
                         }}
+                        // Removed events since interaction is not needed
                         rootProps={{ 'data-testid': '1' }}
                     />
                     <div className="descriptions-section">
-                        <h2>Relevant Descriptions</h2>
-                        {relevantDescriptions.map((item, index) => (
-                            <div key={index} className="description-item">
-                                <h3>{item.theme}</h3>
-                                <p>{item.description}</p>
-                            </div>
-                        ))}
+                        {descriptionsList}
                     </div>
                 </>
             )}
