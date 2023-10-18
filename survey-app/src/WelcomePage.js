@@ -38,7 +38,9 @@ const WelcomePage = ({ onSessionStart }) => {
 
                 {/* Subheader added below the main title */}
                 <p className="welcome-subheader">
-                    Dive into our streamlined two-phase assessment. Start with a succinct Quick-Check overview of your performance across key areas, then strategically Deep Dive into focus areas critical to your progress.
+                    Dive into our streamlined two-phase assessment. 
+                    
+                    Start with a succinct Quick-Check overview of your performance across key areas, then strategically Deep Dive into focus areas critical to your progress.
                 </p>
 
                 <button 

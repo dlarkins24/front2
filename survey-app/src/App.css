@@ -41,6 +41,9 @@ body {
 h1, h2, h3, h4, h5 {
   margin-bottom: 20px; /* Standardized margin-bottom */
   font-weight: var(--bold-font-weight);
+  text-align: center; /* Centers the text */
+  color: #2c103d; /* Sets the color to the specified value */
+
 }
 
 /* Links */
@@ -120,10 +123,13 @@ a:focus, button:focus {
 .registration-form {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centers the content */
+  width: 100%; /* Full width of the parent container */
 }
 
 .input-group {
   margin-bottom: 15px;
+  width: 50%; /* Makes the input group take up half the width of the form */
 }
 
 .input-group label {
@@ -133,7 +139,7 @@ a:focus, button:focus {
 }
 
 .input-group input, .input-group select {
-  width: 100%;
+  width: 100%; /* Full width of the input group, so it matches the parent's width */
   padding: 10px;
   border: 1px solid #cccccc;
   border-radius: var(--universal-border-radius);
