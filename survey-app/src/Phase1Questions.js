@@ -48,33 +48,37 @@ const Phase1Questions = ({ sessionId }) => {
     };
 
     return (
-        <div>
-            <h1>Phase 1 Questions</h1>
-            {questions.map(group => (
-                <div key={group.theme}>
-                    <h2>{group.theme}</h2>
-                    {group.questions.map(question => (
-                        <div key={question.id}>
-                            <p>{question.text}</p>
-                            {question.options.map(option => (
-                                <label key={option.score}>
-                                    <input
-                                        type="radio"
-                                        value={option.score}
-                                        checked={answers[question.id]?.score === option.score}
-                                        onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
-                                    />
-                                    {option.text}
-                                </label>
-                            ))}
-                        </div>
-                    ))}
-                </div>
-            ))}
-            <button onClick={handleSubmit} disabled={loading}>
-                {loading ? 'Submitting...' : 'Submit Responses'}
-            </button>
-            {error && <p className="error">{error}</p>}
+        <div className="app-container">
+            <div className="questionnaire-container">
+                <h1 className="welcome-title">Phase 1 Questions</h1>
+                {questions.map(group => (
+                    <div key={group.theme} className="theme-section">
+                        <h2 className="theme-title">{group.theme}</h2>
+                        {group.questions.map(question => (
+                            <div key={question.id} className="question">
+                                <p>{question.text}</p>
+                                <div className="radio-group">
+                                    {question.options.map(option => (
+                                        <label key={option.score} className="radio-option">
+                                            <input
+                                                type="radio"
+                                                value={option.score}
+                                                checked={answers[question.id]?.score === option.score}
+                                                onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
+                                            />
+                                            {option.text}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+                <button className="submit-button" onClick={handleSubmit} disabled={loading}>
+                    {loading ? 'Submitting...' : 'Submit Responses'}
+                </button>
+                {error && <p className="error">{error}</p>}
+            </div>
         </div>
     );
 };

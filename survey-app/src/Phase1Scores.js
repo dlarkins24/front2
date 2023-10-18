@@ -45,45 +45,50 @@ const Phase1Scores = ({ sessionId }) => {
     ];
 
     return (
-        <div>
-            <h1>Stage 3: Review and Select Themes</h1>
-            <p>Here are the average scores for each theme from Phase 1:</p>
-            <Chart 
-                width={'100%'}
-                height={'400px'}
-                chartType="Bar"
-                loader={<div>Loading Chart</div>}
-                data={chartData}
-                options={{
-                    title: 'Average Scores',
-                    chartArea: { width: '50%' },
-                    hAxis: {
-                      title: 'Average Score',
-                      minValue: 0,
-                    },
-                    vAxis: {
-                      title: 'Theme',
-                    },
-                }}
-                rootProps={{ 'data-testid': '1' }}
-            />
-            {scores.map(({ theme, averageScore }) => (
-                <div key={theme}>
-                    <h2>{theme}: {averageScore}</h2>
-                    <label>
-                        <input 
-                            type="checkbox" 
-                            checked={selectedThemes.includes(theme)}
-                            onChange={(e) => handleThemeSelection(theme, e.target.checked)}
-                        />
-                        Select for Phase 2
-                    </label>
+        <div className="app-container">
+            <div className="score-container">
+                <h1 className="welcome-title">Stage 3: Review and Select Themes</h1>
+                <p>Here are the average scores for each theme from Phase 1:</p>
+                <div className="chart-container">
+                    <Chart 
+                        width={'100%'}
+                        height={'400px'}
+                        chartType="Bar"
+                        loader={<div>Loading Chart</div>}
+                        data={chartData}
+                        options={{
+                            title: 'Average Scores',
+                            chartArea: { width: '50%' },
+                            hAxis: {
+                              title: 'Average Score',
+                              minValue: 0,
+                            },
+                            vAxis: {
+                              title: 'Theme',
+                            },
+                        }}
+                        rootProps={{ 'data-testid': '1' }}
+                    />
                 </div>
-            ))}
-            <button onClick={beginDeepDive} disabled={selectedThemes.length === 0 || loading}>
-                Begin Deep Dive
-            </button>
-            {error && <p className="error">{error}</p>}
+                {scores.map(({ theme, averageScore }) => (
+                    <div key={theme} className="theme-score">
+                        <span>{theme}: {averageScore}</span>
+                        <label>
+                            <input 
+                                className="theme-checkbox"
+                                type="checkbox" 
+                                checked={selectedThemes.includes(theme)}
+                                onChange={(e) => handleThemeSelection(theme, e.target.checked)}
+                            />
+                            Select for Phase 2
+                        </label>
+                    </div>
+                ))}
+                <button className="deep-dive-button" onClick={beginDeepDive} disabled={selectedThemes.length === 0 || loading}>
+                    Begin Deep Dive
+                </button>
+                {error && <p className="error">{error}</p>}
+            </div>
         </div>
     );
 };
