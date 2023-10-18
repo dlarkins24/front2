@@ -309,11 +309,15 @@ a:focus {
 .registration-form {
   display: flex;
   flex-direction: column;
-  width: 100%; /* full width of the parent */
-  align-items: center; /* align children (form fields) in the center */
+  width: 100%; /* or max-width if you prefer */
+  align-items: center; /* keeps the form centered */
 }
 
 .input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers the content */
+  width: 50%; /* or any specific measurement or max-width */
   margin-bottom: 15px;
 }
 
@@ -325,11 +329,12 @@ a:focus {
 
 .input-group input,
 .input-group select {
-  width: 100; /* this means 50% of the registration-form width */
+  width: 100%; /* makes sure inputs/selects take full width of .input-group */
   padding: 10px;
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
+
 
 .proceed-button {
   padding: 10px 20px;
