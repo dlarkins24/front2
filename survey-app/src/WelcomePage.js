@@ -12,14 +12,9 @@ const WelcomePage = ({ onSessionStart }) => {
         try {
             setLoading(true);
             setError(null);
-            
             const response = await axios.post('https://back2.azurewebsites.net/start-session');
             const sessionId = response.data.sessionId;
-            
-            // Notify the App component that the session has started
             onSessionStart(sessionId);
-
-            // Redirect to the Phase 1 Questions page
             navigate('/Phase1Questions');
         } catch (error) {
             console.error("Error starting session:", error);
@@ -29,11 +24,9 @@ const WelcomePage = ({ onSessionStart }) => {
         }
     };
 
-    // In your WelcomePage component's return statement, you can include the logo at the top, bottom, or wherever suits your design best.
     return (
         <div className="app-container">
             <div className="welcome-container">
-                {/* Logo added here at the top of the container */}
                 <div className="logo-container">
                     <img 
                         src="https://www.moorhouseconsulting.com/wp-content/uploads/2022/04/FooterLogoNew.svg" 
@@ -41,8 +34,13 @@ const WelcomePage = ({ onSessionStart }) => {
                         className="moorhouse-logo" 
                     />
                 </div>
-
                 <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assessment</h1>
+
+                {/* Subheader added below the main title */}
+                <p className="welcome-subheader">
+                    Dive into our streamlined two-phase assessment. Start with a succinct Quick-Check overview of your performance across key areas, then strategically Deep Dive into focus areas critical to your progress.
+                </p>
+
                 <button 
                     className="start-button" 
                     onClick={startSession} 
