@@ -29,23 +29,30 @@ const WelcomePage = ({ onSessionStart }) => {
         }
     };
 
-// In your WelcomePage component's return statement...
+    // In your WelcomePage component's return statement, you can include the logo at the top, bottom, or wherever suits your design best.
+    return (
+        <div className="app-container">
+            <div className="welcome-container">
+                {/* Logo added here at the top of the container */}
+                <div className="logo-container">
+                    <img 
+                        src="https://www.moorhouseconsulting.com/wp-content/uploads/2022/04/FooterLogoNew.svg" 
+                        alt="Moorhouse Consulting Logo" 
+                        className="moorhouse-logo" 
+                    />
+                </div>
 
-return (
-    <div className="app-container">
-        <div className="welcome-container">
-            <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assesment</h1>
-            <button 
-                className="start-button" 
-                onClick={startSession} 
-                disabled={loading}>
-                {loading ? 'Starting...' : 'Start Assessment'}
-            </button>
-            {error && <p className="error">{error}</p>}
+                <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assessment</h1>
+                <button 
+                    className="start-button" 
+                    onClick={startSession} 
+                    disabled={loading}>
+                    {loading ? 'Starting...' : 'Start Assessment'}
+                </button>
+                {error && <p className="error">{error}</p>}
+            </div>
         </div>
-    </div>
-);
-
+    );
 };
 
 export default WelcomePage;

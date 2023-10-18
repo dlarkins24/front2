@@ -270,3 +270,64 @@ a:focus {
 .question p {
   font-weight: var(--bold-font-weight); /* Assuming this variable is set to a bold value like 700 */
 }
+
+.moorhouse-logo {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.logo-container {
+  text-align: center; /* Center the logo */
+}
+/* App.css */
+
+/* ... other styles ... */
+
+.registration-container {
+  max-width: 500px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
+  background: #fff; /* Optional */
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 15px; /* Space between input fields */
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px; /* Space between label and input field */
+  font-weight: bold; /* Optional */
+}
+
+.input-group input,
+.input-group select {
+  width: 100%; /* Make input field fill the width of the form */
+  padding: 10px; /* Padding inside the input field */
+  border: 1px solid #cccccc;
+  border-radius: 5px; /* Optional: for rounded borders */
+}
+
+.proceed-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px; /* Consistent with input field styling */
+  background-color: #00ab8e; /* Example color, you can use your primary color */
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px; /* Space between the last input and the button */
+}
+
+.proceed-button:hover {
+  background-color: #008367; /* Darker shade of the button color for hover effect */
+}
+
+/* ... other styles ... */

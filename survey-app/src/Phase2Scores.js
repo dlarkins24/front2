@@ -86,6 +86,8 @@ const Phase2Scores = ({ sessionId }) => {
                                     vAxis: {
                                         title: 'Average Score',
                                     },
+                                    legend: { position: 'none' }, // Legend is removed here
+                                    colors: ['#00ab8e'], // Uniform color for all bars
                                 }}
                                 rootProps={{ 'data-testid': '1' }}
                             />
