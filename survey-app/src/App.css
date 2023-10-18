@@ -4,7 +4,7 @@
   --color-content-primary-faded: #999;
   --font-family: Poppins, sans-serif;
   --font-size: 16px;
-  --line-height: 1.5;
+  --line-height: 25px;
   --font-weight: 300;
   --bold-font-weight: 700;
   --color-content-bg: #fff;
@@ -14,8 +14,6 @@
   --color-content-primary: #00ab8e;
   --color-content-secondary: #3c1053;
   --color-content-faded: #999;
-  --error-color: #D9534F;  /* Defining the error color here for consistency */
-  --universal-border-radius: 5px; /* Common border-radius value */
 }
 
 /* Basic Resets */
@@ -23,27 +21,28 @@
   box-sizing: border-box;
 }
 
-html, body {
+body, html {
   margin: 0;
   padding: 0;
-  font-family: var(--font-family);
+  width: 100%;
 }
 
 body {
-  background-color: var(--color-content-bg-alt);
-  color: var(--color-content-text);
+  background: var(--color-content-bg-alt);
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: var(--color-content-primary-faded);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
   font-size: var(--font-size);
   line-height: var(--line-height);
-  font-weight: var(--font-weight);
 }
 
 /* Headers */
 h1, h2, h3, h4, h5 {
-  margin-bottom: 20px; /* Standardized margin-bottom */
+  font-family: var(--font-family);
   font-weight: var(--bold-font-weight);
-  text-align: center; /* Centers the text */
-  color: #2c103d; /* Sets the color to the specified value */
-
+  margin-bottom: 0.6em;
 }
 
 /* Links */
@@ -63,12 +62,17 @@ button {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: var(--universal-border-radius);
+  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: var(--color-content-secondary);
+}
+
+button:active, button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-content-secondary);
 }
 
 button:disabled {
@@ -78,18 +82,18 @@ button:disabled {
 
 /* Error messages */
 .error {
-  color: var(--error-color);
+  color: #D9534F;  /* Red color for error, not defined as variable */
   background-color: var(--color-content-bg-alt);
   padding: 15px;
   margin: 15px 0;
-  border-radius: var(--universal-border-radius);
+  border-radius: 4px;  /* A standard for a slightly rounded border */
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   body {
-    font-size: 14px; /* Adjusting font-size for smaller screens */
-    line-height: 22px;
+      font-size: 14px;  /* Slightly smaller text for small screens */
+      line-height: 22px;
   }
 }
 
@@ -98,76 +102,232 @@ a:visited {
   color: var(--color-content-faded);
 }
 
-a:focus, button:focus {
+a:focus {
   outline: 2px solid var(--color-content-primary);
 }
 
-/* Universal container styles */
+/* Existing CSS content... */
+
+/* New styles for the welcome page */
 .app-container {
-  max-width: 800px; /* This value should be the width you're happy with on the welcome page. */
-  margin: 0 auto; /* This centers the container. */
-  padding: 20px; /* Optional: for some space around the content. */
-  /* other styles... */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This ensures your container takes up the full view height */
+  background-color: var(--color-content-bg-alt); /* Using your existing variable */
 }
 
-/* Specific container styles */
-.registration-container, .welcome-container, .questionnaire-container, .score-container {
-  background-color: var(--color-content-bg);
-  border-radius: var(--universal-border-radius);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.welcome-container {
+  text-align: center;
+  background-color: var(--color-content-bg); /* Existing white background */
+  padding: 50px;
+  border-radius: 10px; /* For rounded corners */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+.welcome-title {
+  margin-bottom: 20px;
+  color: var(--color-content-text); /* Existing text color */
+  font-weight: var(--bold-font-weight); /* Using your bold weight for the title */
+}
+
+.start-button {
+  /* Most button styles are inherited, adding only specific changes */
+  padding: 10px 20px;
+  font-size: var(--font-size);
+  border-radius: 5px; /* Slightly more rounded than the default */
+  transition: background-color 0.3s ease;
+  font-weight: var(--bold-font-weight); /* Making text bold */
+}
+
+.start-button:hover {
+  background-color: var(--color-content-link-hover); /* Using your hover color */
+}
+
+.start-button:disabled {
+  background-color: var(--color-content-faded); /* Existing faded color */
+  cursor: not-allowed;
+}
+
+/* If you want the error message to stand out more, you might consider adding more styles */
+.error {
+  /* Existing styles... */
+  border: 1px solid #D9534F; /* If you want a border around the error message */
+  /* Other styling as needed */
+}
+/* Existing CSS content... */
+
+/* New styles for the Phase1Questions page */
+.questionnaire-container {
   padding: 20px;
+  background-color: var(--color-content-bg); /* white background */
+  border-radius: 10px; /* rounded corners */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* slight shadow for depth */
   margin: 20px auto;
+  max-width: 800px; /* Adjust based on your design preference */
 }
 
-/* Form styles */
+.theme-section {
+  margin-bottom: 40px;
+}
+
+.theme-title {
+  color: var(--color-content-secondary); /* dark text for contrast and visibility */
+  margin-bottom: 20px;
+}
+
+.question {
+  margin-bottom: 15px;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.radio-option {
+  margin-right: 20px; /* space between radio options */
+  display: flex;
+  align-items: center;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 8px; /* space between radio input and its label */
+}
+
+.submit-button {
+  /* Styles could be similar to your start-button from the welcome page */
+  padding: 10px 20px;
+  color: var(--color-content-bg); /* white text */
+  background-color: var(--color-content-primary); /* primary color */
+  border: none;
+  border-radius: 5px;
+  font-size: var(--font-size);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: var(--bold-font-weight); /* bold text */
+}
+
+.submit-button:hover {
+  background-color: var(--color-content-secondary); /* secondary color on hover */
+}
+
+.submit-button:disabled {
+  background-color: var(--color-content-faded); /* grey out if disabled */
+  cursor: not-allowed;
+}
+/* Existing CSS content... */
+
+/* New styles for the Phase1Scores page */
+.score-container {
+  padding: 20px;
+  background-color: var(--color-content-bg); /* white background */
+  border-radius: 10px; /* rounded corners */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* slight shadow for depth */
+  margin: 20px auto;
+  max-width: 800px; /* Adjust based on your design preference */
+}
+
+.chart-container {
+  margin: 20px 0;
+}
+
+.theme-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.theme-checkbox {
+  margin-left: 10px; /* space between label and checkbox */
+}
+
+.deep-dive-button {
+  /* Styles could be similar to your submit-button from the previous page */
+  padding: 10px 20px;
+  color: var(--color-content-bg); /* white text */
+  background-color: var(--color-content-primary); /* primary color */
+  border: none;
+  border-radius: 5px;
+  font-size: var(--font-size);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: var(--bold-font-weight); /* bold text */
+}
+
+.deep-dive-button:hover {
+  background-color: var(--color-content-secondary); /* secondary color on hover */
+}
+
+.deep-dive-button:disabled {
+  background-color: var(--color-content-faded); /* grey out if disabled */
+  cursor: not-allowed;
+}
+/* Existing styles... */
+
+.question p {
+  font-weight: var(--bold-font-weight); /* Assuming this variable is set to a bold value like 700 */
+}
+
+.moorhouse-logo {
+  max-width: 30%;
+  height: auto;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.logo-container {
+  text-align: center; /* Center the logo */
+}
+/* App.css */
+
+/* ... other styles ... */
+
+.registration-container {
+  max-width: 500px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
+  background: #fff; /* Optional */
+}
+
 .registration-form {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the content */
-  width: 100%; /* Full width of the parent container */
 }
 
 .input-group {
-  margin-bottom: 15px;
-  width: 50%; /* Makes the input group take up half the width of the form */
+  margin-bottom: 15px; /* Space between input fields */
 }
 
 .input-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 5px; /* Space between label and input field */
+  font-weight: bold; /* Optional */
 }
 
-.input-group input, .input-group select {
-  width: 100%; /* Full width of the input group, so it matches the parent's width */
-  padding: 10px;
+.input-group input,
+.input-group select {
+  width: 100%; /* Make input field fill the width of the form */
+  padding: 10px; /* Padding inside the input field */
   border: 1px solid #cccccc;
-  border-radius: var(--universal-border-radius);
+  border-radius: 5px; /* Optional: for rounded borders */
 }
 
-/* Button styles across the app */
-.proceed-button, .start-button, .submit-button, .deep-dive-button {
+.proceed-button {
   padding: 10px 20px;
   border: none;
-  border-radius: var(--universal-border-radius);
-  background-color: var(--color-content-primary);
+  border-radius: 5px; /* Consistent with input field styling */
+  background-color: #00ab8e; /* Example color, you can use your primary color */
   color: white;
   cursor: pointer;
-  font-size: var(--font-size);
-  margin-top: 20px;
+  font-size: 16px;
+  margin-top: 20px; /* Space between the last input and the button */
 }
 
-.proceed-button:hover, .start-button:hover, .submit-button:hover, .deep-dive-button:hover {
-  background-color: var(--color-content-secondary);
+.proceed-button:hover {
+  background-color: #008367; /* Darker shade of the button color for hover effect */
 }
-/* Add this to your CSS file */
 
-.welcome-subheader {
-  margin-top: 20px; /* Adjust as needed */
-  margin-bottom: 40px; /* Adjust as needed */
-  font-size: 1.1em; /* Slightly larger than normal text */
-  color: var(--color-content-text); /* Using your existing text color variable */
-  line-height: 1.6; /* For readability */
-  font-weight: var(--font-weight); /* Normal font weight */
-  text-align: center; /* If you want the text centered */
-}
+/* ... other styles ... */
