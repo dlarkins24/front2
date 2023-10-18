@@ -230,6 +230,7 @@ a:focus {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* slight shadow for depth */
   margin: 20px auto;
   max-width: 800px; /* Adjust based on your design preference */
+  width: 800px;
 }
 
 .chart-container {
@@ -313,7 +314,7 @@ a:focus {
 
 .input-group input,
 .input-group select {
-  width: 100%; /* Make input field fill the width of the form */
+  width: 50%; /* Make input field fill the width of the form */
   padding: 10px; /* Padding inside the input field */
   border: 1px solid #cccccc;
   border-radius: 5px; /* Optional: for rounded borders */
