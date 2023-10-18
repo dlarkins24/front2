@@ -90,7 +90,7 @@ button:disabled {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   body {
       font-size: 14px;  /* Slightly smaller text for small screens */
       line-height: 22px;
@@ -287,7 +287,7 @@ a:focus {
 /* ... other styles ... */
 
 .registration-container {
-  max-width: 500px; /* Adjust as needed */
+  max-width: 800px; /* Adjust as needed */
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
