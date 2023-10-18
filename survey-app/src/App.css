@@ -325,7 +325,7 @@ a:focus {
 
 .input-group input,
 .input-group select {
-  width: 50%; /* this means 50% of the registration-form width */
+  width: 100; /* this means 50% of the registration-form width */
   padding: 10px;
   border: 1px solid #cccccc;
   border-radius: 5px;
