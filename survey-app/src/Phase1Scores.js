@@ -47,8 +47,8 @@ const Phase1Scores = ({ sessionId }) => {
     return (
         <div className="app-container">
             <div className="score-container">
-                <h1 className="welcome-title">Quick Check Results</h1>
-                <p>Here are the average scores for each theme from the Quick Check:</p>
+                <h1 className="welcome-title">Quick-Check Results</h1>
+                <p>Here are the average scores for each theme from the Quick-Check:</p>
                 <div className="chart-container">
                     <Chart 
                         width={'100%'}

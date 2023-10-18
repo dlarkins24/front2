@@ -62,7 +62,7 @@ const Phase2Scores = ({ sessionId }) => {
     return (
         <div className="app-container">
             <div className="scores-container">
-                <h1 className="welcome-title">Phase 2 Deep Dive Scores</h1>
+                <h1 className="welcome-title">Deep Dive Scores</h1>
                 {loading ? (
                     <p>Loading...</p>
                 ) : error ? (

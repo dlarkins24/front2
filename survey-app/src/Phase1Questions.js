@@ -50,7 +50,7 @@ const Phase1Questions = ({ sessionId }) => {
     return (
         <div className="app-container">
             <div className="questionnaire-container">
-                <h1 className="welcome-title">Quick Check Questions</h1>
+                <h1 className="welcome-title">Quick-Check Questions</h1>
                 {questions.map(group => (
                     <div key={group.theme} className="theme-section">
                         <h2 className="theme-title">{group.theme}</h2>

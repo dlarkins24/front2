@@ -53,7 +53,7 @@ const Phase2Questions = ({ sessionId }) => {
     return (
         <div className="app-container">
             <div className="questionnaire-container">
-                <h1 className="welcome-title">Phase 2 Deep Dive Questions</h1>
+                <h1 className="welcome-title">Deep Dive Questions</h1>
                 <form onSubmit={handleSubmit} className="questionnaire-form">
                     {questions.map((group) => (
                         <div key={group.theme} className="theme-section">
