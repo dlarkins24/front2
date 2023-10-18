@@ -12,7 +12,7 @@ const RegistrationPage = ({ sessionId }) => {
         department: ''
     });
     const [roles, setRoles] = useState([]);
-    const [departments, setDepartments] = useState([]); // New state for departments
+    const [departments, setDepartments] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const RegistrationPage = ({ sessionId }) => {
             }
         };
 
-        const fetchDepartments = async () => { // New function to fetch departments
+        const fetchDepartments = async () => {
             try {
                 const response = await axios.get('https://back2.azurewebsites.net/get-departments');
                 setDepartments(response.data.departments);
@@ -58,42 +58,44 @@ const RegistrationPage = ({ sessionId }) => {
     };
 
     return (
-        <div>
-            <h1>Stage 4: Registration</h1>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="role">Role:</label>
-                    <select name="role" value={formData.role} onChange={handleChange} required>
-                        <option value="" disabled>Select your role</option>
-                        {roles.map(role => (
-                            <option key={role} value={role}>{role}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="organization">Organization:</label>
-                    <input type="text" name="organization" value={formData.organization} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label htmlFor="department">Department:</label>
-                    <select name="department" value={formData.department} onChange={handleChange} required>
-                        <option value="" disabled>Select your department</option>
-                        {departments.map(dept => (
-                            <option key={dept} value={dept}>{dept}</option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit">Proceed to Phase 2</button>
-            </form>
+        <div className="app-container">
+            <div className="registration-container">
+                <h1 className="welcome-title">Stage 4: Registration</h1>
+                {error && <p className="error">{error}</p>}
+                <form onSubmit={handleSubmit} className="registration-form">
+                    <div className="input-group">
+                        <label htmlFor="name">Name:</label>
+                        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="email">Email:</label>
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="role">Role:</label>
+                        <select name="role" value={formData.role} onChange={handleChange} required>
+                            <option value="" disabled>Select your role</option>
+                            {roles.map(role => (
+                                <option key={role} value={role}>{role}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="organization">Organization:</label>
+                        <input type="text" name="organization" value={formData.organization} onChange={handleChange} required />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="department">Department:</label>
+                        <select name="department" value={formData.department} onChange={handleChange} required>
+                            <option value="" disabled>Select your department</option>
+                            {departments.map(dept => (
+                                <option key={dept} value={dept}>{dept}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <button type="submit" className="proceed-button">Proceed to Phase 2</button>
+                </form>
+            </div>
         </div>
     );
 };

@@ -15,7 +15,7 @@ const Phase2Questions = ({ sessionId }) => {
         const fetchQuestions = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('https://back2.azurewebsites.net/get-phase2-questions'); 
+                const response = await axios.get('https://back2.azurewebsites.net/get-phase2-questions');
                 setAllQuestions(response.data.questions);
             } catch (error) {
                 setError(error);
@@ -51,32 +51,36 @@ const Phase2Questions = ({ sessionId }) => {
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div>
-            <h1>Phase 2 Questions</h1>
-            <form onSubmit={handleSubmit}>
-                {questions.map((group) => (
-                    <div key={group.theme}>
-                        <h2>{group.theme}</h2>
-                        {group.questions.map((question) => (
-                            <div key={question.id}>
-                                <p>{question.text}</p>
-                                {question.options.map((option) => (
-                                    <label key={option.score}>
-                                        <input
-                                            type="radio"
-                                            value={option.score}
-                                            checked={answers[question.id]?.score === option.score}
-                                            onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
-                                        />
-                                        {option.text}
-                                    </label>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                ))}
-                <button type="submit">Submit Responses</button>
-            </form>
+        <div className="app-container">
+            <div className="questionnaire-container">
+                <h1 className="welcome-title">Phase 2 Deep Dive Questions</h1>
+                <form onSubmit={handleSubmit} className="questionnaire-form">
+                    {questions.map((group) => (
+                        <div key={group.theme} className="theme-section">
+                            <h2 className="theme-title">{group.theme}</h2>
+                            {group.questions.map((question) => (
+                                <div key={question.id} className="question">
+                                    <p className="question-text">{question.text}</p>
+                                    <div className="radio-group">
+                                        {question.options.map((option) => (
+                                            <label key={option.score} className="radio-option">
+                                                <input
+                                                    type="radio"
+                                                    value={option.score}
+                                                    checked={answers[question.id]?.score === option.score}
+                                                    onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
+                                                />
+                                                {option.text}
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                    <button type="submit" className="submit-button">Submit Responses</button>
+                </form>
+            </div>
         </div>
     );
 };

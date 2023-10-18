@@ -35,7 +35,6 @@ const Phase2Scores = ({ sessionId }) => {
         fetchScoreDescriptions();
     }, [sessionId]);
 
-    // This function helps to find the description based on the score
     const getDescriptionForScore = (theme, score) => {
         const relevantThemeDescriptions = scoreDescriptions.find(desc => desc.theme === theme);
         if (relevantThemeDescriptions) {
@@ -46,7 +45,6 @@ const Phase2Scores = ({ sessionId }) => {
         return "Description not found.";
     };
 
-    // Preparing data for the Chart and descriptions
     const chartData = [
         ['Theme', 'Average Scores'],
         ...scores.map(score => [score.theme, score.averageScore])
@@ -54,47 +52,50 @@ const Phase2Scores = ({ sessionId }) => {
 
     const descriptionsList = scores.map(score => {
         return (
-            <div key={score.theme}>
-                <h3>{score.theme}</h3>
-                <p>{getDescriptionForScore(score.theme, score.averageScore)}</p>
+            <div key={score.theme} className="score-description">
+                <h3 className="score-theme">{score.theme}</h3>
+                <p className="score-text">{getDescriptionForScore(score.theme, score.averageScore)}</p>
             </div>
         );
     });
 
     return (
-        <div className="App">
-            <h1>Phase 2 Scores</h1>
-            {loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p className="error">{error}</p>
-            ) : (
-                <>
-                    <Chart 
-                        width={'100%'}
-                        height={'400px'}
-                        chartType="ColumnChart"
-                        loader={<div>Loading Chart</div>}
-                        data={chartData}
-                        options={{
-                            title: 'Average Scores',
-                            chartArea: { width: '50%' },
-                            hAxis: {
-                                title: 'Average Score',
-                                minValue: 0,
-                            },
-                            vAxis: {
-                                title: 'Theme',
-                            },
-                        }}
-                        // Removed events since interaction is not needed
-                        rootProps={{ 'data-testid': '1' }}
-                    />
-                    <div className="descriptions-section">
-                        {descriptionsList}
-                    </div>
-                </>
-            )}
+        <div className="app-container">
+            <div className="scores-container">
+                <h1 className="welcome-title">Phase 2 Deep Dive Scores</h1>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : error ? (
+                    <p className="error">{error}</p>
+                ) : (
+                    <>
+                        <div className="chart-container">
+                            <Chart 
+                                width={'100%'}
+                                height={'400px'}
+                                chartType="ColumnChart"
+                                loader={<div>Loading Chart</div>}
+                                data={chartData}
+                                options={{
+                                    title: 'Average Scores by Theme',
+                                    chartArea: { width: '50%' },
+                                    hAxis: {
+                                        title: 'Themes',
+                                        minValue: 0,
+                                    },
+                                    vAxis: {
+                                        title: 'Average Score',
+                                    },
+                                }}
+                                rootProps={{ 'data-testid': '1' }}
+                            />
+                        </div>
+                        <div className="descriptions-section">
+                            {descriptionsList}
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
     );
 };
