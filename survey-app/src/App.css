@@ -331,3 +331,9 @@ a:focus {
 }
 
 /* ... other styles ... */
+.app-container {
+  max-width: 800px; /* This value should be the width you're happy with on the welcome page. */
+  margin: 0 auto; /* This centers the container. */
+  padding: 20px; /* Optional: for some space around the content. */
+  /* other styles... */
+}
