@@ -66,6 +66,8 @@ const Phase1Scores = ({ sessionId }) => {
                             vAxis: {
                               title: 'Theme',
                             },
+                            legend: { position: 'none' }, // This line removes the legend.
+                            colors: ['#00ab8e'] // This line sets the color of the bars to match your button color.
                         }}
                         rootProps={{ 'data-testid': '1' }}
                     />
