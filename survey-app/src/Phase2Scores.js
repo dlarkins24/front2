@@ -61,7 +61,7 @@ const Phase2Scores = ({ sessionId }) => {
 
     return (
         <div className="app-container">
-            <div className="scores-container">
+            <div className="score-container"> {/* Reusing the score-container */}
                 <h1 className="welcome-title">Deep Dive Scores</h1>
                 {loading ? (
                     <p>Loading...</p>
@@ -69,6 +69,7 @@ const Phase2Scores = ({ sessionId }) => {
                     <p className="error">{error}</p>
                 ) : (
                     <>
+                        {/* Chart Component */}
                         <div className="chart-container">
                             <Chart 
                                 width={'100%'}
@@ -86,12 +87,13 @@ const Phase2Scores = ({ sessionId }) => {
                                     vAxis: {
                                         title: 'Average Score',
                                     },
-                                    legend: { position: 'none' }, // Legend is removed here
-                                    colors: ['#00ab8e'], // Uniform color for all bars
+                                    legend: { position: 'none' },
+                                    colors: ['#00ab8e'],
                                 }}
                                 rootProps={{ 'data-testid': '1' }}
                             />
                         </div>
+                        {/* Descriptions right below the chart */}
                         <div className="descriptions-section">
                             {descriptionsList}
                         </div>
@@ -100,6 +102,7 @@ const Phase2Scores = ({ sessionId }) => {
             </div>
         </div>
     );
+    
 };
 
 export default Phase2Scores;

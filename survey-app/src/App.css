@@ -289,48 +289,60 @@ a:focus {
 /* ... other styles ... */
 
 .registration-container {
-  max-width: 800px; /* Adjust as needed */
-  width: 800px;
-  margin: 0 auto;
+  max-width: 800px;
+  width: 800px; /* or 100% if you want it to be responsive */
+  margin: 0 auto; /* centers the container */
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
-  background: #fff; /* Optional */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  /* Center everything in this container */
+  display: flex;
+  flex-direction: column; /* stack children vertically */
+  align-items: center; /* center children horizontally since direction is column */
+}
+
+.form-title {
+  text-align: center; /* center the text inside the title */
+  margin-bottom: 20px; /* optional: space between title and form */
 }
 
 .registration-form {
   display: flex;
   flex-direction: column;
+  width: 100%; /* full width of the parent */
+  align-items: center; /* align children (form fields) in the center */
 }
 
 .input-group {
-  margin-bottom: 15px; /* Space between input fields */
+  margin-bottom: 15px;
 }
 
 .input-group label {
   display: block;
-  margin-bottom: 5px; /* Space between label and input field */
-  font-weight: bold; /* Optional */
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .input-group input,
 .input-group select {
-  width: 50%; /* Make input field fill the width of the form */
-  padding: 10px; /* Padding inside the input field */
+  width: 50%; /* this means 50% of the registration-form width */
+  padding: 10px;
   border: 1px solid #cccccc;
-  border-radius: 5px; /* Optional: for rounded borders */
+  border-radius: 5px;
 }
 
 .proceed-button {
   padding: 10px 20px;
   border: none;
-  border-radius: 5px; /* Consistent with input field styling */
-  background-color: #00ab8e; /* Example color, you can use your primary color */
+  border-radius: 5px;
+  background-color: #00ab8e;
   color: white;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 20px; /* Space between the last input and the button */
+  margin-top: 20px;
 }
 
 .proceed-button:hover {
-  background-color: #008367; /* Darker shade of the button color for hover effect */
+  background-color: #008367;
 }
+
