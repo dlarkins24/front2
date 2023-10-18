@@ -47,8 +47,8 @@ const Phase1Scores = ({ sessionId }) => {
     return (
         <div className="app-container">
             <div className="score-container">
-                <h1 className="welcome-title">Stage 3: Review and Select Themes</h1>
-                <p>Here are the average scores for each theme from Phase 1:</p>
+                <h1 className="welcome-title">Quick Check Results</h1>
+                <p>Here are the average scores for each theme from the Quick Check:</p>
                 <div className="chart-container">
                     <Chart 
                         width={'100%'}
@@ -80,7 +80,7 @@ const Phase1Scores = ({ sessionId }) => {
                                 checked={selectedThemes.includes(theme)}
                                 onChange={(e) => handleThemeSelection(theme, e.target.checked)}
                             />
-                            Select for Phase 2
+                            Select for Deep Dive
                         </label>
                     </div>
                 ))}

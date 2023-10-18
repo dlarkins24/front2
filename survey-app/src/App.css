@@ -265,3 +265,8 @@ a:focus {
   background-color: var(--color-content-faded); /* grey out if disabled */
   cursor: not-allowed;
 }
+/* Existing styles... */
+
+.question p {
+  font-weight: var(--bold-font-weight); /* Assuming this variable is set to a bold value like 700 */
+}
