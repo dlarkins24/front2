@@ -115,6 +115,8 @@ a:focus {
   align-items: center;
   height: 100vh; /* This ensures your container takes up the full view height */
   background-color: var(--color-content-bg-alt); /* Using your existing variable */
+  max-width: 800px; /* or your preferred width */
+  margin: 0 auto; /* this centers the container */
 }
 
 .welcome-container {
@@ -329,5 +331,3 @@ a:focus {
 .proceed-button:hover {
   background-color: #008367; /* Darker shade of the button color for hover effect */
 }
-
-/* ... other styles ... */
