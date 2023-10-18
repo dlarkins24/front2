@@ -346,3 +346,7 @@ a:focus {
   background-color: #008367;
 }
 
+body {
+  padding-top: 20px; /* Adds a 20px padding to the top of the page */
+  /* other existing styles... */
+}
