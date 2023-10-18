@@ -116,6 +116,7 @@ a:focus {
   height: 100vh; /* This ensures your container takes up the full view height */
   background-color: var(--color-content-bg-alt); /* Using your existing variable */
   max-width: 800px; /* or your preferred width */
+  width: 800px;
   margin: 0 auto; /* this centers the container */
 }
 
@@ -288,6 +289,7 @@ a:focus {
 
 .registration-container {
   max-width: 800px; /* Adjust as needed */
+  width: 800px;
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
