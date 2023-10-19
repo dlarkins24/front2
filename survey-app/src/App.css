@@ -113,7 +113,7 @@ a:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* This ensures your container takes up the full view height */
+  height: calc(100vh - 20px);; /* This ensures your container takes up the full view height */
   background-color: var(--color-content-bg-alt); /* Using your existing variable */
   max-width: 800px; /* or your preferred width */
   width: 800px;
@@ -325,6 +325,7 @@ a:focus {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  align-items: left;
 }
 
 .input-group input,
