@@ -79,14 +79,14 @@ const Phase2Scores = ({ sessionId }) => {
                                 loader={<div>Loading Chart</div>}
                                 data={chartData}
                                 options={{
-                                    title: 'Average Scores by Theme',
+                                    title: 'Average Scores by Theme', // You can also remove this if you don't want a title on the chart itself
                                     chartArea: { width: '50%' },
                                     hAxis: {
-                                        title: 'Themes',
+                                        title: '', // Remove the title for the horizontal axis
                                         minValue: 0,
                                     },
                                     vAxis: {
-                                        title: 'Average Score',
+                                        title: '', // Remove the title for the vertical axis
                                     },
                                     legend: { position: 'none' },
                                     colors: ['#00ab8e'],
@@ -94,6 +94,8 @@ const Phase2Scores = ({ sessionId }) => {
                                 rootProps={{ 'data-testid': '1' }}
                             />
                         </div>
+                        {/* New Title for Recommendations Section */}
+                        <h2 className="recommendations-title">Recommendations to improve score</h2> {/* <-- New title element */}
                         {/* Descriptions right below the chart */}
                         <div className="descriptions-section">
                             {descriptionsList}
@@ -104,6 +106,5 @@ const Phase2Scores = ({ sessionId }) => {
         </div>
     );
     
-};
-
+                            }
 export default Phase2Scores;
