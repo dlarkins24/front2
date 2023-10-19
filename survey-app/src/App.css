@@ -113,11 +113,11 @@ a:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 20px);; /* This ensures your container takes up the full view height */
   background-color: var(--color-content-bg-alt); /* Using your existing variable */
   max-width: 800px; /* or your preferred width */
   width: 800px;
   margin: 0 auto; /* this centers the container */
+  padding: 20px 0;
 }
 
 .welcome-container {
