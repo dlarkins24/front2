@@ -43,6 +43,7 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-family);
   font-weight: var(--bold-font-weight);
   margin-bottom: 0.6em;
+  text-align: center;
 }
 
 /* Links */

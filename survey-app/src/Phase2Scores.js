@@ -53,7 +53,8 @@ const Phase2Scores = ({ sessionId }) => {
     const descriptionsList = scores.map(score => {
         return (
             <div key={score.theme} className="score-description">
-                <h3 className="score-theme">{score.theme}</h3>
+                {/* Include the score next to the theme title */}
+                <h3 className="score-theme">{`${score.theme} - Score: ${score.averageScore.toFixed(2)}`} </h3> {/* toFixed is used to format the score, keeping two decimal places */}
                 <p className="score-text">{getDescriptionForScore(score.theme, score.averageScore)}</p>
             </div>
         );
