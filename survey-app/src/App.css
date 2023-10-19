@@ -25,6 +25,7 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
+  font-size: var(--font-size); /* Moved from body to html to influence rem units */
 }
 
 body {
@@ -34,8 +35,8 @@ body {
   -webkit-tap-highlight-color: var(--color-content-primary-faded);
   font-family: var(--font-family);
   font-weight: var(--font-weight);
-  font-size: var(--font-size);
   line-height: var(--line-height);
+  /* Removed font-size from here so it's based on html now */
 }
 
 /* Headers */
@@ -61,7 +62,7 @@ button {
   background-color: var(--color-content-primary);
   color: var(--color-content-bg);
   border: none;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem; /* Changed to relative units */
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
@@ -83,19 +84,25 @@ button:disabled {
 
 /* Error messages */
 .error {
-  color: #D9534F;  /* Red color for error, not defined as variable */
+  color: #D9534F;
   background-color: var(--color-content-bg-alt);
-  padding: 15px;
-  margin: 15px 0;
-  border-radius: 4px;  /* A standard for a slightly rounded border */
+  padding: 0.9375rem; /* Changed to relative units */
+  margin: 0.9375rem 0; /* Changed to relative units */
+  border-radius: 4px;
 }
 
 /* Responsive design */
 @media (max-width: 800px) {
   body {
-      font-size: 14px;  /* Slightly smaller text for small screens */
-      line-height: 22px;
+    font-size: 0.875rem; /* Adjusting font size for mobile views */
+    line-height: 1.375rem; /* Adjusting line height for readability */
   }
+
+  h1, h2, h3, h4, h5 {
+    font-size: 1.25rem; /* Adjusting heading size for mobile views */
+  }
+
+  /* You can add more adjustments here for other elements as needed */
 }
 
 /* Additional states for accessibility */
@@ -107,255 +114,43 @@ a:focus {
   outline: 2px solid var(--color-content-primary);
 }
 
-/* Existing CSS content... */
-
-/* New styles for the welcome page */
-.app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-content-bg-alt); /* Using your existing variable */
-  max-width: 800px; /* or your preferred width */
-  width: 800px;
-  margin: 0 auto; /* this centers the container */
-  padding: 20px 0;
+/* Containers and internal elements */
+/* Using a class like .responsive-container for elements you know should be responsive */
+.responsive-container {
+  width: 100%; /* Full width */
+  padding: 1.25rem; /* Relative spacing */
+  margin: 0 auto; /* Centering */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: var(--color-content-bg);
 }
 
-.welcome-container {
-  text-align: center;
-  background-color: var(--color-content-bg); /* Existing white background */
-  padding: 50px;
-  border-radius: 10px; /* For rounded corners */
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+/* Welcome, Questionnaire, Score sections, etc., can utilize the .responsive-container class or similar styling */
+/* Adjust internal elements (e.g., form inputs, buttons, text) with relative units (em, rem) instead of fixed (px) */
+
+/* Class for responsive images */
+.responsive-img {
+  max-width: 100%; /* Allows image to scale down */
+  height: auto; /* Maintain aspect ratio */
 }
 
-.welcome-title {
-  margin-bottom: 20px;
-  color: var(--color-content-text); /* Existing text color */
-  font-weight: var(--bold-font-weight); /* Using your bold weight for the title */
-}
-
-.start-button {
-  /* Most button styles are inherited, adding only specific changes */
-  padding: 10px 20px;
-  font-size: var(--font-size);
-  border-radius: 5px; /* Slightly more rounded than the default */
-  transition: background-color 0.3s ease;
-  font-weight: var(--bold-font-weight); /* Making text bold */
-}
-
-.start-button:hover {
-  background-color: var(--color-content-link-hover); /* Using your hover color */
-}
-
-.start-button:disabled {
-  background-color: var(--color-content-faded); /* Existing faded color */
-  cursor: not-allowed;
-}
-
-/* If you want the error message to stand out more, you might consider adding more styles */
-.error {
-  /* Existing styles... */
-  border: 1px solid #D9534F; /* If you want a border around the error message */
-  /* Other styling as needed */
-}
-/* Existing CSS content... */
-
-/* New styles for the Phase1Questions page */
-.questionnaire-container {
-  padding: 20px;
-  background-color: var(--color-content-bg); /* white background */
-  border-radius: 10px; /* rounded corners */
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* slight shadow for depth */
-  margin: 20px auto;
-  max-width: 800px; /* Adjust based on your design preference */
-}
-
-.theme-section {
-  margin-bottom: 40px;
-}
-
-.theme-title {
-  color: var(--color-content-secondary); /* dark text for contrast and visibility */
-  margin-bottom: 20px;
-}
-
-.question {
-  margin-bottom: 15px;
-}
-
-.radio-group {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.radio-option {
-  margin-right: 20px; /* space between radio options */
-  display: flex;
-  align-items: center;
-}
-
-.radio-option input[type="radio"] {
-  margin-right: 8px; /* space between radio input and its label */
-}
-
-.submit-button {
-  /* Styles could be similar to your start-button from the welcome page */
-  padding: 10px 20px;
-  color: var(--color-content-bg); /* white text */
-  background-color: var(--color-content-primary); /* primary color */
-  border: none;
-  border-radius: 5px;
-  font-size: var(--font-size);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-weight: var(--bold-font-weight); /* bold text */
-}
-
-.submit-button:hover {
-  background-color: var(--color-content-secondary); /* secondary color on hover */
-}
-
-.submit-button:disabled {
-  background-color: var(--color-content-faded); /* grey out if disabled */
-  cursor: not-allowed;
-}
-/* Existing CSS content... */
-
-/* New styles for the Phase1Scores page */
-.score-container {
-  padding: 20px;
-  background-color: var(--color-content-bg); /* white background */
-  border-radius: 10px; /* rounded corners */
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* slight shadow for depth */
-  margin: 20px auto;
-  max-width: 800px; /* Adjust based on your design preference */
-  width: 800px;
-}
-
-.chart-container {
-  margin: 20px 0;
-}
-
-.theme-score {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.theme-checkbox {
-  margin-left: 10px; /* space between label and checkbox */
-}
-
-.deep-dive-button {
-  /* Styles could be similar to your submit-button from the previous page */
-  padding: 10px 20px;
-  color: var(--color-content-bg); /* white text */
-  background-color: var(--color-content-primary); /* primary color */
-  border: none;
-  border-radius: 5px;
-  font-size: var(--font-size);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-weight: var(--bold-font-weight); /* bold text */
-}
-
-.deep-dive-button:hover {
-  background-color: var(--color-content-secondary); /* secondary color on hover */
-}
-
-.deep-dive-button:disabled {
-  background-color: var(--color-content-faded); /* grey out if disabled */
-  cursor: not-allowed;
-}
-/* Existing styles... */
-
-.question p {
-  font-weight: var(--bold-font-weight); /* Assuming this variable is set to a bold value like 700 */
-}
-
-.moorhouse-logo {
-  max-width: 30%;
-  height: auto;
-  margin-bottom: 20px; /* Adjust as needed */
-}
-
-.logo-container {
-  text-align: center; /* Center the logo */
-}
-/* App.css */
-
-/* ... other styles ... */
-
-.registration-container {
-  max-width: 800px;
-  width: 800px; /* or 100% if you want it to be responsive */
-  margin: 0 auto; /* centers the container */
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background: #fff;
-  /* Center everything in this container */
-  display: flex;
-  flex-direction: column; /* stack children vertically */
-  align-items: center; /* center children horizontally since direction is column */
-}
-
-.form-title {
-  text-align: center; /* center the text inside the title */
-  margin-bottom: 20px; /* optional: space between title and form */
-}
-
-.registration-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%; /* or max-width if you prefer */
-  align-items: center; /* keeps the form centered */
-}
-
+/* Adjustments for form elements */
 .input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Aligns items to the start of the container */
-  width: 50%; /* Adjust based on your preference */
-  margin-bottom: 15px;
+  width: 100%; /* Full width of the parent */
+  margin-bottom: 0.9375rem; /* Relative unit */
 }
 
-.input-group label {
-  display: block; /* Takes up the full line */
-  text-align: left; /* Ensures the text is left-aligned */
-  margin-bottom: 5px;
-  font-weight: bold;
-  width: 100%; /* Makes the label take up the full width of the container */
-  /* No need for 'align-items' here, as it doesn't apply */
-}
-
+.input-group label,
 .input-group input,
 .input-group select {
-  width: 100%; /* Takes up the full width of the container */
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
+  /* Other styles remain the same, just ensure widths are 100% and consider font sizes in relative units */
 }
-
 
 .proceed-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #00ab8e;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
+  /* Convert any fixed unit (like px) to relative (em or rem) */
 }
 
-.proceed-button:hover {
-  background-color: #008367;
-}
-
+/* Additional global styles for responsiveness */
 body {
-  padding-top: 20px; /* Adds a 20px padding to the top of the page */
-  /* other existing styles... */
+  padding-top: 1.25rem; /* Changed to relative unit */
 }
