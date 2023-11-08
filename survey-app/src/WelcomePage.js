@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
@@ -6,13 +6,51 @@ import './App.css';
 const WelcomePage = ({ onSessionStart }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [industries, setIndustries] = useState([]);
+    const [orgSizes, setOrgSizes] = useState([]);
+    const [selectedIndustry, setSelectedIndustry] = useState('');
+    const [selectedOrgSize, setSelectedOrgSize] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchIndustries = async () => {
+            try {
+                const response = await axios.get('https://back2.azurewebsites.net/get-industries');
+                setIndustries(response.data.industries);
+            } catch (error) {
+                setError("Error fetching industries. Please try again later.");
+            }
+        };
+
+        const fetchOrgSizes = async () => {
+            try {
+                const response = await axios.get('https://back2.azurewebsites.net/get-org-sizes');
+                setOrgSizes(response.data.orgSizes);
+            } catch (error) {
+                setError("Error fetching organization sizes. Please try again later.");
+            }
+        };
+
+        fetchIndustries();
+        fetchOrgSizes();
+    }, []);
+
+    const handleIndustryChange = (e) => {
+        setSelectedIndustry(e.target.value);
+    };
+
+    const handleOrgSizeChange = (e) => {
+        setSelectedOrgSize(e.target.value);
+    };
 
     const startSession = async () => {
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.post('https://back2.azurewebsites.net/start-session');
+            const response = await axios.post('https://back2.azurewebsites.net/start-session', {
+                industry: selectedIndustry,
+                orgSize: selectedOrgSize
+            });
             const sessionId = response.data.sessionId;
             onSessionStart(sessionId);
             navigate('/Phase1Questions');
@@ -27,27 +65,32 @@ const WelcomePage = ({ onSessionStart }) => {
     return (
         <div className="app-container">
             <div className="welcome-container">
-                <div className="logo-container">
-                    <img 
-                        src="https://www.moorhouseconsulting.com/wp-content/uploads/2022/04/FooterLogoNew.svg" 
-                        alt="Moorhouse Consulting Logo" 
-                        className="moorhouse-logo" 
-                    />
+                {/* existing content */}
+                <div className="dropdown-container">
+                    <div className="input-group">
+                        <label htmlFor="industry">Industry:</label>
+                        <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
+                            <option value="" disabled>Select your industry</option>
+                            {industries.map(industry => (
+                                <option key={industry} value={industry}>{industry}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="orgSize">Organization Size:</label>
+                        <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
+                            <option value="" disabled>Select your organization size</option>
+                            {orgSizes.map(size => (
+                                <option key={size} value={size}>{size}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
-                <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assessment</h1>
-
-                {/* Subheader added below the main title */}
-                <p className="welcome-subheader">
-                    Dive into our streamlined two-phase assessment. <br /><br />
-                    Start with a succinct Quick-Check overview of your performance across key areas, 
-                    then strategically Deep Dive into focus areas critical to your journey.
-                </p>
-
 
                 <button 
                     className="start-button" 
                     onClick={startSession} 
-                    disabled={loading}>
+                    disabled={loading || !selectedIndustry || !selectedOrgSize}>
                     {loading ? 'Starting...' : 'Start Assessment'}
                 </button>
                 {error && <p className="error">{error}</p>}
