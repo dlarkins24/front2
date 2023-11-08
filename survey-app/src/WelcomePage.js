@@ -17,10 +17,10 @@ const WelcomePage = ({ onSessionStart }) => {
         const fetchData = async () => {
             try {
                 // The URLs here are placeholders. You'll need to replace them with your actual endpoints
-                const industriesResponse = await axios.get('/api/industries');
+                const industriesResponse = await axios.get('https://back2.azurewebsites.net/get-industries');
                 setIndustries(industriesResponse.data);
 
-                const orgSizesResponse = await axios.get('/api/org-sizes');
+                const orgSizesResponse = await axios.get('https://back2.azurewebsites.net/get-ord-sizes');
                 setOrgSizes(orgSizesResponse.data);
             } catch (error) {
                 setError("Error fetching data. Please try again later.");
