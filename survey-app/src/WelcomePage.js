@@ -12,14 +12,16 @@ const WelcomePage = ({ onSessionStart }) => {
     const [selectedOrgSize, setSelectedOrgSize] = useState('');
     const navigate = useNavigate();
 
+    // Fetch industries and orgSizes from the backend
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const industriesResponse = await axios.get('https://back2.azurewebsites.net/get-industries');
-                setIndustries(industriesResponse.data.industries);
+                // The URLs here are placeholders. You'll need to replace them with your actual endpoints
+                const industriesResponse = await axios.get('/api/industries');
+                setIndustries(industriesResponse.data);
 
-                const orgSizesResponse = await axios.get('https://back2.azurewebsites.net/get-org-sizes');
-                setOrgSizes(orgSizesResponse.data.orgSizes);
+                const orgSizesResponse = await axios.get('/api/org-sizes');
+                setOrgSizes(orgSizesResponse.data);
             } catch (error) {
                 setError("Error fetching data. Please try again later.");
             }
@@ -40,17 +42,17 @@ const WelcomePage = ({ onSessionStart }) => {
         try {
             setLoading(true);
             setError(null);
-            const sessionResponse = await axios.post('https://back2.azurewebsites.net/start-session');
-            const sessionId = sessionResponse.data.sessionId;
+            const response = await axios.post('https://back2.azurewebsites.net/start-session');
+            const sessionId = response.data.sessionId;
+            onSessionStart(sessionId);
 
-            // Send the welcome responses to the backend
+            // Assuming you want to send the industry and orgSize immediately after starting the session
             await axios.post('https://back2.azurewebsites.net/submit-welcome-responses', {
                 sessionId: sessionId,
                 industry: selectedIndustry,
                 orgSize: selectedOrgSize
             });
 
-            onSessionStart(sessionId);
             navigate('/Phase1Questions');
         } catch (error) {
             console.error("Error starting session:", error);
@@ -63,27 +65,37 @@ const WelcomePage = ({ onSessionStart }) => {
     return (
         <div className="app-container">
             <div className="welcome-container">
-                {/* Logo and welcome title elements */}
-                {/* ... other elements ... */}
+                <div className="logo-container">
+                    <img 
+                        src="https://www.moorhouseconsulting.com/wp-content/uploads/2022/04/FooterLogoNew.svg" 
+                        alt="Moorhouse Consulting Logo" 
+                        className="moorhouse-logo" 
+                    />
+                </div>
+                <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assessment</h1>
+                <p className="welcome-subheader">
+                    Dive into our streamlined two-phase assessment. <br /><br />
+                    Start with a succinct Quick-Check overview of your performance across key areas, 
+                    then strategically Deep Dive into focus areas critical to your journey.
+                </p>
 
-                {/* Dropdown for selecting Industry */}
+                {/* Dropdowns for Industry and Organization Size */}
                 <div className="input-group">
                     <label htmlFor="industry">Industry:</label>
                     <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
                         <option value="" disabled>Select your industry</option>
-                        {industries.map(industry => (
-                            <option key={industry} value={industry}>{industry}</option>
+                        {industries.map((industry, index) => (
+                            <option key={index} value={industry}>{industry}</option>
                         ))}
                     </select>
                 </div>
 
-                {/* Dropdown for selecting Organization Size */}
                 <div className="input-group">
                     <label htmlFor="orgSize">Organization Size:</label>
                     <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
                         <option value="" disabled>Select your organization size</option>
-                        {orgSizes.map(size => (
-                            <option key={size} value={size}>{size}</option>
+                        {orgSizes.map((size, index) => (
+                            <option key={index} value={size}>{size}</option>
                         ))}
                     </select>
                 </div>
