@@ -84,8 +84,9 @@ const WelcomePage = ({ onSessionStart }) => {
   <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
     <option value="" disabled>Select your industry</option>
     {industries.map((industry, index) => (
-      <option key={index} value={industry.title}>{industry.title}</option>
-    ))}
+  <option key={index} value={industry}>{industry}</option>
+))}
+
   </select>
 </div>
 
@@ -94,8 +95,9 @@ const WelcomePage = ({ onSessionStart }) => {
   <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
     <option value="" disabled>Select your organization size</option>
     {orgSizes.map((size, index) => (
-      <option key={index} value={size.title}>{size.title}</option>
-    ))}
+  <option key={index} value={size}>{size}</option>
+))}
+
   </select>
 </div>
 
