@@ -18,10 +18,10 @@ const WelcomePage = ({ onSessionStart }) => {
             try {
                 // The URLs here are placeholders. You'll need to replace them with your actual endpoints
                 const industriesResponse = await axios.get('https://back2.azurewebsites.net/get-industries');
-                setIndustries(industriesResponse.data);
+                setIndustries(industriesResponse.data.industries);
 
                 const orgSizesResponse = await axios.get('https://back2.azurewebsites.net/get-org-sizes');
-                setOrgSizes(orgSizesResponse.data);
+                setOrgSizes(orgSizesResponse.data.orgSizes);
             } catch (error) {
                 setError("Error fetching data. Please try again later.");
             }
