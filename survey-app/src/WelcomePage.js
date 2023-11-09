@@ -80,13 +80,13 @@ const WelcomePage = ({ onSessionStart }) => {
     <div className="phase phase-quick-check">
         <h3 className="phase-title">Quick-Check Overview</h3>
         <p className="phase-description">
-            Start with a succinct Quick-Check overview of your performance across key areas.
+            Start with a succinct Quick-Check overview of your performance across key areas to identify strengths and growth opportunities.
         </p>
     </div>
     <div className="phase phase-deep-dive">
         <h3 className="phase-title">Deep Dive Analysis</h3>
         <p className="phase-description">
-            Then strategically Deep Dive into focus areas critical to your journey.
+            Register your details to complete a Deep Dive into selected focus areas critical to your journey. Gain tailored reccomendations on how to strengten your focus areas based on your current level of maturity. 
         </p>
     </div>
 </div>
