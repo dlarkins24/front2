@@ -73,11 +73,24 @@ const WelcomePage = ({ onSessionStart }) => {
                     />
                 </div>
                 <h1 className="welcome-title">Welcome to the Moorhouse Maturity Assessment</h1>
-                <p className="welcome-subheader">
-                    Dive into our streamlined two-phase assessment. <br /><br />
-                    Start with a succinct Quick-Check overview of your performance across key areas, 
-                    then strategically Deep Dive into focus areas critical to your journey.
-                </p>
+                <div className="assessment-phases">
+    <p className="welcome-subheader">
+        Dive into our streamlined two-phase assessment.
+    </p>
+    <div className="phase phase-quick-check">
+        <h3 className="phase-title">Quick-Check Overview</h3>
+        <p className="phase-description">
+            Start with a succinct Quick-Check overview of your performance across key areas.
+        </p>
+    </div>
+    <div className="phase phase-deep-dive">
+        <h3 className="phase-title">Deep Dive Analysis</h3>
+        <p className="phase-description">
+            Then strategically Deep Dive into focus areas critical to your journey.
+        </p>
+    </div>
+</div>
+
                 
                 <div className="welcome-form-container"> {/* New container for centering form elements */}
                     <div className="input-group">
@@ -91,9 +104,9 @@ const WelcomePage = ({ onSessionStart }) => {
                     </div>
 
                     <div className="input-group">
-                        <label htmlFor="orgSize">Organization Size:</label>
+                        <label htmlFor="orgSize">Organisation Size:</label>
                         <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
-                            <option value="" disabled>Select your organization size</option>
+                            <option value="" disabled>Select your organisation size</option>
                             {orgSizes.map((size, index) => (
                                 <option key={index} value={size}>{size}</option>
                             ))}
