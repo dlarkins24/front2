@@ -20,7 +20,7 @@ const WelcomePage = ({ onSessionStart }) => {
                 const industriesResponse = await axios.get('https://back2.azurewebsites.net/get-industries');
                 setIndustries(industriesResponse.data);
 
-                const orgSizesResponse = await axios.get('https://back2.azurewebsites.net/get-ord-sizes');
+                const orgSizesResponse = await axios.get('https://back2.azurewebsites.net/get-org-sizes');
                 setOrgSizes(orgSizesResponse.data);
             } catch (error) {
                 setError("Error fetching data. Please try again later.");
