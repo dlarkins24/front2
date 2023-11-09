@@ -78,29 +78,28 @@ const WelcomePage = ({ onSessionStart }) => {
                     Start with a succinct Quick-Check overview of your performance across key areas, 
                     then strategically Deep Dive into focus areas critical to your journey.
                 </p>
+                
+                <div className="welcome-form-container"> {/* New container for centering form elements */}
+                    <div className="input-group">
+                        <label htmlFor="industry">Industry:</label>
+                        <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
+                            <option value="" disabled>Select your industry</option>
+                            {industries.map((industry, index) => (
+                                <option key={index} value={industry}>{industry}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                <div className="input-group">
-  <label htmlFor="industry">Industry:</label>
-  <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
-    <option value="" disabled>Select your industry</option>
-    {industries.map((industry, index) => (
-  <option key={index} value={industry}>{industry}</option>
-))}
-
-  </select>
-</div>
-
-<div className="input-group">
-  <label htmlFor="orgSize">Organization Size:</label>
-  <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
-    <option value="" disabled>Select your organization size</option>
-    {orgSizes.map((size, index) => (
-  <option key={index} value={size}>{size}</option>
-))}
-
-  </select>
-</div>
-
+                    <div className="input-group">
+                        <label htmlFor="orgSize">Organization Size:</label>
+                        <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
+                            <option value="" disabled>Select your organization size</option>
+                            {orgSizes.map((size, index) => (
+                                <option key={index} value={size}>{size}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
 
                 <button 
                     className="start-button" 
