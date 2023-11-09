@@ -79,26 +79,26 @@ const WelcomePage = ({ onSessionStart }) => {
                     then strategically Deep Dive into focus areas critical to your journey.
                 </p>
 
-                {/* Dropdowns for Industry and Organization Size */}
                 <div className="input-group">
-                    <label htmlFor="industry">Industry:</label>
-                    <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
-                        <option value="" disabled>Select your industry</option>
-                        {industries.map((industry, index) => (
-                            <option key={index} value={industry}>{industry}</option>
-                        ))}
-                    </select>
-                </div>
+  <label htmlFor="industry">Industry:</label>
+  <select name="industry" value={selectedIndustry} onChange={handleIndustryChange} required>
+    <option value="" disabled>Select your industry</option>
+    {industries.map((industry, index) => (
+      <option key={index} value={industry.title}>{industry.title}</option>
+    ))}
+  </select>
+</div>
 
-                <div className="input-group">
-                    <label htmlFor="orgSize">Organization Size:</label>
-                    <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
-                        <option value="" disabled>Select your organization size</option>
-                        {orgSizes.map((size, index) => (
-                            <option key={index} value={size}>{size}</option>
-                        ))}
-                    </select>
-                </div>
+<div className="input-group">
+  <label htmlFor="orgSize">Organization Size:</label>
+  <select name="orgSize" value={selectedOrgSize} onChange={handleOrgSizeChange} required>
+    <option value="" disabled>Select your organization size</option>
+    {orgSizes.map((size, index) => (
+      <option key={index} value={size.title}>{size.title}</option>
+    ))}
+  </select>
+</div>
+
 
                 <button 
                     className="start-button" 
