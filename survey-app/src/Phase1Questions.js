@@ -15,7 +15,8 @@ const Phase1Questions = ({ sessionId }) => {
             try {
                 setLoading(true);
                 const response = await axios.get('https://back2.azurewebsites.net/get-questions');
-                setQuestions(response.data.questions);
+                const flattenedQuestions = response.data.questions.flatMap(group => group.questions);
+                setQuestions(flattenedQuestions);
             } catch (error) {
                 setError("Error fetching questions. Please try again.");
             } finally {
@@ -51,27 +52,22 @@ const Phase1Questions = ({ sessionId }) => {
         <div className="app-container">
             <div className="questionnaire-container">
                 <h1 className="welcome-title">Quick-Check Questions</h1>
-                {questions.map(group => (
-                    <div key={group.theme} className="theme-section">
-                        <h2 className="theme-title">{group.theme}</h2>
-                        {group.questions.map(question => (
-                            <div key={question.id} className="question">
-                                <p>{question.text}</p>
-                                <div className="radio-group">
-                                    {question.options.map(option => (
-                                        <label key={option.score} className="radio-option">
-                                            <input
-                                                type="radio"
-                                                value={option.score}
-                                                checked={answers[question.id]?.score === option.score}
-                                                onChange={() => handleChange(question.id, option.score, group.theme, question.phase)}
-                                            />
-                                            {option.text}
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
+                {questions.map(question => (
+                    <div key={question.id} className="question">
+                        <p>{question.text}</p>
+                        <div className="radio-group">
+                            {question.options.map(option => (
+                                <label key={option.score} className="radio-option">
+                                    <input
+                                        type="radio"
+                                        value={option.score}
+                                        checked={answers[question.id]?.score === option.score}
+                                        onChange={() => handleChange(question.id, option.score, question.theme, question.phase)}
+                                    />
+                                    {option.text}
+                                </label>
+                            ))}
+                        </div>
                     </div>
                 ))}
                 <button className="submit-button" onClick={handleSubmit} disabled={loading}>
