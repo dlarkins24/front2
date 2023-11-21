@@ -86,6 +86,7 @@ const Phase1Scores = ({ sessionId }) => {
                         </label>
                     </div>
                 ))}
+                <p className="register-text">Register to proceed with the deep dive</p> {/* Add this line */}
                 <button className="deep-dive-button" onClick={beginDeepDive} disabled={selectedThemes.length === 0 || loading}>
                     Begin Deep Dive
                 </button>

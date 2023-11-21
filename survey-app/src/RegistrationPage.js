@@ -60,7 +60,7 @@ const RegistrationPage = ({ sessionId }) => {
     return (
         <div className="app-container">
             <div className="registration-container">
-                <h1 className="welcome-title">Registration</h1>
+                <h1 className="welcome-title">Deep Dive Registration</h1>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit} className="registration-form">
                     <div className="input-group">
