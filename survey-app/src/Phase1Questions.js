@@ -15,7 +15,13 @@ const Phase1Questions = ({ sessionId }) => {
             try {
                 setLoading(true);
                 const response = await axios.get('https://back2.azurewebsites.net/get-questions');
-                const flattenedQuestions = response.data.questions.flatMap(group => group.questions);
+                // Flatten the questions array
+                const flattenedQuestions = response.data.questions.flatMap(group => 
+                    group.questions.map(question => ({
+                        ...question,
+                        theme: group.theme // keep the theme as part of each question
+                    }))
+                );
                 setQuestions(flattenedQuestions);
             } catch (error) {
                 setError("Error fetching questions. Please try again.");
